@@ -44,7 +44,6 @@ public class Simulatable{
 	}
 
 	public void simulate(float dt){
-		// System.out.println("Sim with dt: " +dt);
 		// Saves last Speed and Position to calculate the real Accel and Speed
 		PVector lastSpeed = speed.get();
 		PVector lastPosition = position.get();

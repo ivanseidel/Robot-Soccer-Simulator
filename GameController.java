@@ -21,8 +21,19 @@ public class GameController implements Drawable, Runnable{
 
 	// Number of desired players for each side
 	private int teamPlayers;
-	GameController(int teamPlayers){
+
+	// Classes of Teams
+	private Class TeamAClass;
+	private Class TeamBClass;
+
+	GameController(
+		Class<? extends Team> TeamAClass,
+		Class<? extends Team> TeamBClass,
+		int teamPlayers){
+
 		this.teamPlayers = Math.max(teamPlayers, 1);
+		this.TeamAClass = TeamAClass;
+		this.TeamBClass = TeamBClass;
 
 		judge = new Judge(this);
 
@@ -94,16 +105,25 @@ public class GameController implements Drawable, Runnable{
 			unRegisterRobot(robots.get(0));
 		}
 
-		Team a = new BasicTeam();
-		Team b = new BasicTeam();
+		Team a, b;
+
+		try{
+			a = (Team)TeamAClass.newInstance();
+			b = (Team)TeamBClass.newInstance();
+		}catch(Exception e){
+			System.out.println(e.toString());
+			System.exit(1);
+			return;
+		}
+		
+		a.setTeamSide(TeamSide.LEFT);
+		b.setTeamSide(TeamSide.RIGHT);
 
 		for(int i = 0; i < teamPlayers; i++){
-			a.setTeamSide(TeamSide.LEFT);
 			Robot ar = a.buildRobot(simulator, i);
 			ar.setTeamColor(0xFF0000FF);
 			registerRobot(ar, TeamSide.LEFT);
 
-			b.setTeamSide(TeamSide.RIGHT);
 			Robot br = b.buildRobot(simulator, i);
 			br.setTeamColor(0xFFFFFF00);
 			registerRobot(br, TeamSide.RIGHT);

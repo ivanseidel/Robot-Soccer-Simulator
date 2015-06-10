@@ -6,7 +6,23 @@ GameSimulator simulator;
 float gameScale = 300f;
 void setup(){
 
-	controller = new GameController(2);
+	/*
+		This is where you setup both Teams and also the number of players
+
+		By default, we have to Team Classes implemented:
+			BasicTeam: A functional robot that follows the ball blindly
+			MyCustomTeam: A debugger robot, used to read sensors and output to the console
+	*/
+
+	controller = new GameController(
+		// Team A Class
+		BasicTeam.class,
+		// Team B Class
+		BasicTeam.class,
+		// Number of robots on each side
+		2
+	);
+
 	uiElements.add(controller);
 	size((int)controller.getWidth(gameScale) + 200, (int)controller.getHeight(gameScale)+100);
 }

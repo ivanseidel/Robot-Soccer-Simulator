@@ -13,7 +13,9 @@ public class BasicTeam implements Team{
             return new Attacker(s);
         if(index == 1)
             return new Goalier(s);
-        return null;
+
+        // By default, return a new attacker
+        return new Attacker(s);
     }
  
     class Attacker extends RobotBasic{

@@ -26,6 +26,9 @@ public class GameController implements Drawable, Runnable{
 	private Class TeamAClass;
 	private Class TeamBClass;
 
+	// Instantied teams
+	Team a, b;
+
 	GameController(
 		Class<? extends Team> TeamAClass,
 		Class<? extends Team> TeamBClass,
@@ -105,8 +108,6 @@ public class GameController implements Drawable, Runnable{
 			unRegisterRobot(robots.get(0));
 		}
 
-		Team a, b;
-
 		try{
 			a = (Team)TeamAClass.newInstance();
 			b = (Team)TeamBClass.newInstance();
@@ -115,7 +116,7 @@ public class GameController implements Drawable, Runnable{
 			System.exit(1);
 			return;
 		}
-		
+
 		a.setTeamSide(TeamSide.LEFT);
 		b.setTeamSide(TeamSide.RIGHT);
 
@@ -190,6 +191,23 @@ public class GameController implements Drawable, Runnable{
 		canvas.textAlign(PApplet.CENTER);
 		String text = getPointsFor(TeamSide.LEFT)+" x "+getPointsFor(TeamSide.RIGHT);
 		canvas.text(text, getWidth(scale)/2, 50);
+
+		// Print Team Name on both sides
+		if(a != null){
+			canvas.textSize(32);
+			canvas.textAlign(PApplet.LEFT);
+			canvas.text(a.getTeamName(), 20, 50);
+			canvas.textSize(16);
+			canvas.text(a.getClass().getSimpleName(), 20, 70);
+		}
+
+		if(b != null){
+			canvas.textSize(32);
+			canvas.textAlign(PApplet.RIGHT);
+			canvas.text(b.getTeamName(), getWidth(scale) - 20, 50);
+			canvas.textSize(16);
+			canvas.text(b.getClass().getSimpleName(), getWidth(scale) - 20, 70);
+		}
 	}
 
 	/*

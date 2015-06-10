@@ -24,9 +24,15 @@ class CompassSensor extends RobotSensor{
 
 	private void doReading(){
 		Robot thisRobot = getRobot();
-		// FFFFFFFFFFFFFFFFFFFFFFF - Acrescentei o (float) nas linhas seguintes
+
 		float orientation = (float)Math.toDegrees(thisRobot.orientation);
 		float noise = (float)Math.random() * NOISE_AMMOUNT - NOISE_AMMOUNT / 2f;
+
+		// Fix orientation (from 0-359)
+		int multiples = (int)(orientation / 360);
+		orientation = orientation - multiples * 360;
+		while(orientation < 0)
+			orientation += 360;
 
 		values[0] = orientation + noise;
 	}

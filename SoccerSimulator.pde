@@ -18,7 +18,7 @@ void setup(){
 		// Team A Class
 		BasicTeam.class,
 		// Team B Class
-		BasicTeam.class,
+		MyCustomTeam.class,
 		// Number of robots on each side
 		2
 	);

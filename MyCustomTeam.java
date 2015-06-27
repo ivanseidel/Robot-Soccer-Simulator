@@ -1,5 +1,11 @@
 public class MyCustomTeam implements Team{
-     
+    private static class UsSensors {
+        public static final int FRONT = 0;
+        public static final int LEFT = 1;
+        public static final int BACK = 2;
+        public static final int RIGHT = 3;
+    }
+
     public String getTeamName(){
         return "Loko's Team";
     }
@@ -22,9 +28,15 @@ public class MyCustomTeam implements Team{
  
         BallLocator locator;
         CompassSensor compass;
+        UsDistanceSensor[] ultrasonic_sensors = new UsDistanceSensor[4];
         public void run(){
             locator = (BallLocator)getSensor("BALL");
             compass = (CompassSensor)getSensor("COMPASS");
+
+            ultrasonic_sensors[UsSensors.FRONT] = (UsDistanceSensor)getSensor("ULTRASONIC_FRONT");
+            ultrasonic_sensors[UsSensors.LEFT] = (UsDistanceSensor)getSensor("ULTRASONIC_LEFT");
+            ultrasonic_sensors[UsSensors.BACK] = (UsDistanceSensor)getSensor("ULTRASONIC_BACK");
+            ultrasonic_sensors[UsSensors.RIGHT] = (UsDistanceSensor)getSensor("ULTRASONIC_RIGHT");
 
             float goalDir = 0f;
             // Find Goal Direction
@@ -56,6 +68,21 @@ public class MyCustomTeam implements Team{
                     vY = -2;
                 }
 
+                float left = ultrasonic_sensors[UsSensors.LEFT].readValues()[0];
+                float right = ultrasonic_sensors[UsSensors.RIGHT].readValues()[0];
+                float front = ultrasonic_sensors[UsSensors.FRONT].readValues()[0];
+                float back = ultrasonic_sensors[UsSensors.BACK].readValues()[0];
+
+                // Avoid contact with other objects and robots
+                float threshold = .1f;
+                if (left < threshold)
+                    vX = .5f;
+                else if (right < threshold)
+                    vX = -.5f;
+                if (front < threshold)
+                    vY = -.5f;
+                else if (back < threshold)
+                    vY = .5f;
 
                 setTargetSpeed(vY, vX);
                 

@@ -3,7 +3,7 @@ import processing.core.*;
 class CompassSensor extends RobotSensor{
 
 	// Random noise applyed to the final reading
-	private static final int NOISE_AMMOUNT = 3;
+	private static final int NOISE_AMOUNT = 3;
 
 	// Interval to read the sensor in seconds
 	private static final float READ_INTERVAL = 0.01f;
@@ -16,7 +16,7 @@ class CompassSensor extends RobotSensor{
 
 	float lastRead = 0;
 	public float[] readValues(){
-		if(game.getTime() >= lastRead + 0.01f)
+		if(game.getTime() >= lastRead + READ_INTERVAL)
 			doReading();
 
 		return values;
@@ -26,15 +26,13 @@ class CompassSensor extends RobotSensor{
 		Robot thisRobot = getRobot();
 
 		float orientation = (float)Math.toDegrees(thisRobot.orientation);
-		float noise = (float)Math.random() * NOISE_AMMOUNT - NOISE_AMMOUNT / 2f;
 
 		// Fix orientation (from 0-359)
 		int multiples = (int)(orientation / 360);
 		orientation = orientation - multiples * 360;
-		while(orientation < 0)
-			orientation += 360;
+		orientation = MathUtil.fixAngle(orientation);
 
-		values[0] = orientation + noise;
+		values[0] = getReadingAfterNoise(orientation, NOISE_AMOUNT);
 	}
 
 }

@@ -23,7 +23,15 @@ class UsDistanceSensor extends RobotSensor{
 	 */
 	// TODO this should fail to read based on the angle between ray and surface
 	public float[] readValues() {
-		float dist = game.closestSimulatableInRay(robot, this);
+		PVector origin = robot.getRealPosition();
+		float direction = robot.getOrientation() + (float) Math.toRadians(localOrientation);
+
+		// use border of robot
+		PVector v = PVector.fromAngle(direction);
+		v.setMag(robot.getRadius());
+		origin.add(v);
+
+		float dist = game.closestSimulatableInRay(robot, origin, direction);
 		dist = getReadingAfterNoise(dist, NOISE_AMOUNT);
 
 		float[] values = new float[1];

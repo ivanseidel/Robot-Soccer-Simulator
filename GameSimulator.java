@@ -168,15 +168,7 @@ public class GameSimulator implements Drawable{
 		return false;
 	}
 
-	public float closestSimulatableInRay(Robot robot, UsDistanceSensor sensor) {
-		PVector origin = robot.getRealPosition();
-		float direction = robot.getOrientation() + (float) Math.toRadians(sensor.localOrientation);
-
-		// use border of robot
-		PVector v = PVector.fromAngle(direction);
-		v.setMag(robot.getRadius());
-		origin.add(v);
-
+	public float closestSimulatableInRay(Robot robot, PVector origin, float direction) {
 		float dist = Float.POSITIVE_INFINITY;
 		for (Simulatable sim: simulatables) {
 			if (sim == robot || sim instanceof Ball)

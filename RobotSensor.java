@@ -21,4 +21,14 @@ class RobotSensor{
 	public float[] readValues(){
 		return null;
 	}
+
+	/**
+	 * Applies random noise to a given value
+	 *
+	 * @return The new computed reading
+	 */
+	protected float getReadingAfterNoise(float reading, float noise) {
+		float addedNoise = (float) Math.random() * noise - noise / 2f;
+		return reading + addedNoise;
+	}
 }

@@ -168,6 +168,17 @@ public class GameSimulator implements Drawable{
 		return false;
 	}
 
+	public float closestSimulatableInRay(Robot robot, PVector origin, float direction) {
+		float dist = Float.POSITIVE_INFINITY;
+		for (Simulatable sim: simulatables) {
+			if (sim == robot || sim instanceof Ball)
+				continue;
+			dist = Math.min(dist, MathUtil.rayDistance(origin, direction, sim));
+		}
+
+		return dist;
+	}
+
 	public void addToSimulation(Robot s){
 		if(simulatables.contains(s))
 			return;

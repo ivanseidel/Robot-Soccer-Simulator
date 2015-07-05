@@ -8,8 +8,8 @@ public class GameSimulator implements Drawable{
 	private static final float FIELD_H = 1.82f;
 	private static final float WALL_TICK = 0.10f;
 
-	public ArrayList<Simulatable> simulatables = new ArrayList<Simulatable>();
-	private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
+	public Vector<Simulatable> simulatables = new Vector<Simulatable>();
+	private Vector<Drawable> drawables = new Vector<Drawable>();
 
 	private Block[] walls = new Block[4];
 
@@ -170,10 +170,16 @@ public class GameSimulator implements Drawable{
 
 	public float closestSimulatableInRay(Robot robot, PVector origin, float direction) {
 		float dist = Float.POSITIVE_INFINITY;
-		for (Simulatable sim: simulatables) {
-			if (sim == robot || sim instanceof Ball)
-				continue;
-			dist = Math.min(dist, MathUtil.rayDistance(origin, direction, sim));
+		synchronized(simulatables) {
+			Iterator i = simulatables.iterator();
+			while(i.hasNext()){
+				Simulatable sim = (Simulatable)i.next();
+				
+				if (sim == robot || sim instanceof Ball)
+					continue;
+				
+				dist = Math.min(dist, MathUtil.rayDistance(origin, direction, sim));
+			}
 		}
 
 		return dist;

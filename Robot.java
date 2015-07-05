@@ -91,33 +91,45 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 		return true;
 	}
 
+	public void run(){
+	}
+
 	/*
 		Methods publicly available
 	*/
-	public void setTargetSpeed(PVector speed){
-		targetSpeed = speed.get();
+	// public void setSpeed(PVector speed){
+	// 	targetSpeed = speed.get();
+	// 	targetSpeed.limit(maxSpeed);
+	// }
+
+	// Change robot forward/backward speed only
+	public void setSpeed(float x){
+		targetSpeed.set(x, 0);
 		targetSpeed.limit(maxSpeed);
 	}
 
-	public void setTargetSpeed(float x, float y){
+	// Change robot's front/back left/right speed
+	public void setSpeed(float x, float y){
 		targetSpeed.set(x, y);
 		targetSpeed.limit(maxSpeed);
 	}
 
-	public void setTargetAngularSpeed(float speed){
+	// Set the target angular speed
+	public void setRotation(float speed){
 		targetAngularSpeed = speed;
 	}
 
 	public void stopMotors(){
-		setTargetSpeed(0,0);
-		setTargetAngularSpeed(0);
+		setSpeed(0,0);
+		setRotation(0);
 	}
 
 	public float getOrientation(){
 		return orientation;
 	}
 
-	public void run(){
+	public long millis(){
+		return (long) game.getTime() * 1000;
 	}
 
 	public boolean delay(int time){
@@ -130,7 +142,6 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 	}
 
 	public void onStateChanged(String state){
-		// System.out.println("State changed: "+state+" ["+this+"]");
 	}
 
 	/*

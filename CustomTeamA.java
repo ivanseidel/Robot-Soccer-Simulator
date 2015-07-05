@@ -1,4 +1,4 @@
-public class BasicTeam implements Team{
+public class CustomTeamA implements Team{
      
     public String getTeamName(){
         return "Emerotecos";
@@ -34,8 +34,8 @@ public class BasicTeam implements Team{
                 float[] vals = locator.readValues();
                 float angle = vals[0];
  
-                setTargetAngularSpeed(angle / divisor);
-                setTargetSpeed(0.5f,0);
+                setRotation(angle / divisor);
+                setSpeed(0.5f,0);
                 delay(100);
             }
         }
@@ -65,9 +65,9 @@ public class BasicTeam implements Team{
                 float angle = vals[0];
  
                 if(Math.abs(angle) < 90)
-                    setTargetSpeed(0f, angle / divisor);
+                    setSpeed(0f, angle / divisor);
                 else
-                    setTargetSpeed(0f, 0f);
+                    setSpeed(0f, 0f);
  
                 delay(100);
             }

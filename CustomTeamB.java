@@ -1,4 +1,4 @@
-public class MyCustomTeam implements Team{
+public class CustomTeamB implements Team{
     private static class UsSensors {
         public static final int FRONT = 0;
         public static final int LEFT = 1;
@@ -51,7 +51,7 @@ public class MyCustomTeam implements Team{
                 float comp = compass.readValues()[0];
 
                 // Correct Angle with compass
-                setTargetAngularSpeed((goalDir - comp) * 0.01f);
+                setRotation((goalDir - comp) * 0.01f);
 
                 float vX = 0f, vY = 0f;
 
@@ -84,7 +84,7 @@ public class MyCustomTeam implements Team{
                 else if (back < threshold)
                     vY = .5f;
 
-                setTargetSpeed(vY, vX);
+                setSpeed(vY, vX);
                 
                 delay(50);
             }

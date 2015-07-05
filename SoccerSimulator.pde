@@ -16,9 +16,9 @@ void setup(){
 
 	controller = new GameController(
 		// Team A Class
-		BasicTeam.class,
+		CustomTeamA.class,
 		// Team B Class
-		MyCustomTeam.class,
+		CustomTeamB.class,
 		// Number of robots on each side
 		2
 	);
@@ -52,11 +52,11 @@ public void keyPressed(){
 			controller.pauseGame();
 		}else{
 			System.out.println("Starting game...");
-			controller.startGame();
+			controller.resumeGame();
 		}
 	}else if(key == 'i'){
 		controller.resetGame();
-		controller.startGame();
+		controller.resumeGame();
 	}else if(key == 'r'){
 		controller.restartPositions();
 	}else if(key == 'd'){

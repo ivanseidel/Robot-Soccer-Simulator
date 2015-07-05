@@ -41,6 +41,9 @@ public class Judge{
 
 		// Check if scored goals
 		checkGoal();
+
+		// If no player in the game, re-position players
+		checkNoPlayer();
 	}
 
 	private Timer ballOutsideTimer = new Timer(BALL_OUTSIDE_TIME_LIMIT, true);
@@ -102,7 +105,20 @@ public class Judge{
 		}else if(b.colliding(simulator.goalRight) && !b.colliding(simulator.fieldArea)){
 			controller.addPointsFor(TeamSide.LEFT, 1);
 			controller.restartPositions();
-			controller.startGame();
+			controller.resumeGame();
+		}
+	}
+
+	private void checkNoPlayer(){
+		int playerCount = 0;
+		for(Robot r:controller.getRobots()){
+			if(!takenOutRobots.contains(r))
+				playerCount++;
+		}
+
+		if(playerCount <= 0){
+			controller.restartPositions();
+			controller.resumeGame();
 		}
 	}
 

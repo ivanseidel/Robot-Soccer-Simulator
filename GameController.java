@@ -145,15 +145,18 @@ public class GameController implements Drawable, Runnable{
 		for(Robot r:robots)
 			placeRobot(r);
 
+		for(Robot r:robots)
+			startRobot(r);
+
 		moveBallToSpot(simulator.fieldCenter);
 	}
 
-	public void startGame(){
+	public void resumeGame(){
 		// First place robots and add them to simulatables, then start threads,
 		// otherwise we can get concurrency exceptions when reading the
 		// collection of simulatables
-		for(Robot r:robots)
-			placeRobot(r);
+		// for(Robot r:robots)
+			// placeRobot(r);
 
 		for(Robot r:robots)
 			startRobot(r);

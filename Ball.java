@@ -2,17 +2,17 @@ import processing.core.*;
 
 public class Ball extends Simulatable implements ShapeCircle, Drawable{
 
-	public float kAtrito = 0.02f;
+	public float kAtrito = 17f;
 
 	public float getMass(){
-		return 0.0005f;
+		return 0.300f;
 	}
 	public float getRadius(){
 		return 0.05f;
 	}
 
 	public float getKFactor(){
-		return 1f;
+		return 1.0f;
 	}
 
 	public boolean canCollide(Simulatable s){

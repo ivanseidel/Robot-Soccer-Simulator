@@ -12,7 +12,7 @@ public class Block extends Simulatable implements ShapeRect, Drawable{
 	}
 
 	public float getMass(){
-		return 0.3f;
+		return 100f;
 	}
 
 	public float getKFactor(){

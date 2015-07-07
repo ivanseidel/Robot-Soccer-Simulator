@@ -1,3 +1,6 @@
+import processing.core.*;
+import java.util.*;
+
 public class CustomTeamB implements Team{
     private static class UsSensors {
         public static final int FRONT = 0;
@@ -24,12 +27,14 @@ public class CustomTeamB implements Team{
             super(s);
         }
  
-        float divisor = (float)Math.random() * 5 + 5;
- 
         BallLocator locator;
         CompassSensor compass;
         UsDistanceSensor[] ultrasonic_sensors = new UsDistanceSensor[4];
-        public void run(){
+        float goalDir;
+
+        public void setup(){
+            System.out.println("Running!");
+
             locator = (BallLocator)getSensor("BALL");
             compass = (CompassSensor)getSensor("COMPASS");
 
@@ -38,56 +43,54 @@ public class CustomTeamB implements Team{
             ultrasonic_sensors[UsSensors.BACK] = (UsDistanceSensor)getSensor("ULTRASONIC_BACK");
             ultrasonic_sensors[UsSensors.RIGHT] = (UsDistanceSensor)getSensor("ULTRASONIC_RIGHT");
 
-            float goalDir = 0f;
+            goalDir = 0f;
             // Find Goal Direction
             if(s == TeamSide.RIGHT)
                 goalDir = 180f;
+        }
 
- 
-            System.out.println("Running!");
-            while(true){
-                float ballAngle = locator.readValues()[0];
-                float ballDist = locator.readValues()[1];
-                float comp = compass.readValues()[0];
+        public void loop(){
+            float ballAngle = locator.readValues()[0];
+            float ballDist = locator.readValues()[1];
+            float comp = compass.readValues()[0];
 
-                // Correct Angle with compass
-                setRotation((goalDir - comp) * 0.01f);
+            // Correct Angle with compass
+            setRotation(MathUtil.relativeAngle(goalDir - comp) * 1f);
 
-                float vX = 0f, vY = 0f;
+            float vX = 0f, vY = 0f;
 
-                float rads = (float)Math.toRadians(ballAngle);
-                float ballX = (float)Math.sin(rads);
-                float ballY = (float)Math.cos(rads);
+            float rads = (float)Math.toRadians(ballAngle);
+            float ballX = (float)Math.sin(rads);
+            float ballY = (float)Math.cos(rads);
 
-                if(ballAngle < 45 && ballAngle > -45){
-                    vX = ballX * 5;
-                    vY = 2f;
-                }else if(ballAngle > 135 * (1/ (ballDist + 0.1)) || ballAngle < -135 * (1/ (ballDist + 0.1))){
-                    vX = -ballX * 5;
-                }else{
-                    vY = -2;
-                }
-
-                float left = ultrasonic_sensors[UsSensors.LEFT].readValues()[0];
-                float right = ultrasonic_sensors[UsSensors.RIGHT].readValues()[0];
-                float front = ultrasonic_sensors[UsSensors.FRONT].readValues()[0];
-                float back = ultrasonic_sensors[UsSensors.BACK].readValues()[0];
-
-                // Avoid contact with other objects and robots
-                float threshold = .1f;
-                if (left < threshold)
-                    vX = .5f;
-                else if (right < threshold)
-                    vX = -.5f;
-                if (front < threshold)
-                    vY = -.5f;
-                else if (back < threshold)
-                    vY = .5f;
-
-                setSpeed(vY, vX);
-                
-                delay(50);
+            if(ballAngle < 45 && ballAngle > -45){
+                vX = ballX * 5;
+                vY = 2f;
+            }else if(ballAngle > 135 * (1/ (ballDist + 0.1)) || ballAngle < -135 * (1/ (ballDist + 0.1))){
+                vX = -ballX * 5;
+            }else{
+                vY = -2;
             }
+
+            float left = ultrasonic_sensors[UsSensors.LEFT].readValues()[0];
+            float right = ultrasonic_sensors[UsSensors.RIGHT].readValues()[0];
+            float front = ultrasonic_sensors[UsSensors.FRONT].readValues()[0];
+            float back = ultrasonic_sensors[UsSensors.BACK].readValues()[0];
+
+            // Avoid contact with other objects and robots
+            float threshold = .1f;
+            if (left < threshold)
+                vX = .5f;
+            else if (right < threshold)
+                vX = -.5f;
+            if (front < threshold)
+                vY = -.5f;
+            else if (back < threshold)
+                vY = .5f;
+
+            setSpeed(vY, vX);
+            
+            delay(50);
         }
     }
  

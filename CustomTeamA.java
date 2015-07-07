@@ -23,21 +23,22 @@ public class CustomTeamA implements Team{
             super(s);
         }
  
-        float divisor = (float)Math.random() * 5 + 5;
+        float speedMultiplier = (float)Math.random() * 5 + 5;
  
         BallLocator locator;
-        public void run(){
-            locator = (BallLocator)getSensor("BALL");
- 
+
+        public void setup(){
             System.out.println("Running!");
-            while(true){
-                float[] vals = locator.readValues();
-                float angle = vals[0];
- 
-                setRotation(angle / divisor);
-                setSpeed(0.5f,0);
-                delay(100);
-            }
+            locator = (BallLocator)getSensor("BALL");
+        }
+
+        public void loop(){
+            float[] vals = locator.readValues();
+            float angle = vals[0];
+
+            setRotation(angle * speedMultiplier);
+            setSpeed(0.5f,0);
+            delay(100);
         }
     }
  
@@ -51,6 +52,7 @@ public class CustomTeamA implements Team{
         BallLocator locator;
         // Front, left, back, right
         UsDistanceSensor[] ultrasonic_sensors = new UsDistanceSensor[4];
+        
         public void run(){
             locator = (BallLocator)getSensor("BALL");
 

@@ -91,7 +91,11 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 		return true;
 	}
 
+	/*
+		This is the method used by the Thread.
+	*/
 	public void run(){
+		
 	}
 
 	/*
@@ -116,7 +120,7 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 
 	// Set the target angular speed
 	public void setRotation(float speed){
-		targetAngularSpeed = speed;
+		targetAngularSpeed = (float)Math.toRadians(speed);
 	}
 
 	public void stopMotors(){
@@ -129,7 +133,7 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 	}
 
 	public long millis(){
-		return (long) game.getTime() * 1000;
+		return (long) (game.getTime() * 1000);
 	}
 
 	public boolean delay(int time){
@@ -193,6 +197,30 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 		canvas.stroke(0);
 		canvas.ellipse(x, y, diameter, diameter);
 		canvas.line(x, y, x + (float)orient.x, y + (float)orient.y);
+
+		// Delegate Decoration to Robot
+		float heading = orient.heading();
+		float drawScale = 100f / scale * getRadius();
+
+		canvas.translate(x, y);
+		canvas.rotate(heading);
+		canvas.scale(drawScale);
+		// TODO: How to resolve scale, so that teams don't have to mind it also...
+		decorateRobot(canvas);
+		canvas.scale(1f/drawScale);
+		canvas.rotate(-heading);
+		canvas.translate(-x, -y);
+	}
+
+	/*
+	 * This method can be used to decorate the robot appearence.
+	 * It is called everytime after rendering itself
+	 * The area that is drawable, is a 100px x 100px, sacaled to
+	 * the robot. The center is at [0,0], and Y axis indicate the
+	 * Robot's Front
+	 */
+	public void decorateRobot(PApplet canvas){
+
 	}
 
 };

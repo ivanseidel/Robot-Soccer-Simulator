@@ -28,9 +28,19 @@ class RobotBasic extends Robot{
 
 	}
 
-
+	/*
+		Arduino-like flux
+	*/
 	public void run(){
-		System.out.println("I'm running!");
+		setup();
+
+		while(true){
+			loop();
+			delay(1);
+		}
 	}
+
+	public void setup(){};
+	public void loop(){};
 
 }

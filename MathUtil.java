@@ -12,6 +12,14 @@ class MathUtil {
 		return angle;
 	}
 
+	public static float relativeAngle(float delta){
+		while (delta < 180f)
+			delta += 360f;
+		while (delta >= 180f)
+			delta -= 360f;
+		return delta;
+	}
+
 	public static float rayDistance(PVector origin, float direction, Simulatable sim) {
 		// FIXME this is ugly and I should be ashamed!
 		if (sim instanceof ShapeCircle) {

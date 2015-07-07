@@ -102,15 +102,20 @@ public class GameController implements Drawable, Runnable{
 
 		// Delegate reset to judge
 		judge.onGameControllerReseted();
-		
+
+		// Setup Team Sides and instantiate robots
+		initTeamSides(true);
+	}
+
+	public void initTeamSides(boolean invertSide){
 		// Remove Robots
 		while(robots.size() > 0){
 			unRegisterRobot(robots.get(0));
 		}
-
+		
 		try{
-			a = (Team)TeamAClass.newInstance();
-			b = (Team)TeamBClass.newInstance();
+			a = (Team)(invertSide ? TeamBClass : TeamAClass).newInstance();
+			b = (Team)(invertSide ? TeamAClass : TeamBClass).newInstance();
 		}catch(Exception e){
 			System.out.println(e.toString());
 			System.exit(1);
@@ -122,15 +127,19 @@ public class GameController implements Drawable, Runnable{
 
 		for(int i = 0; i < teamPlayers; i++){
 			Robot ar = a.buildRobot(simulator, i);
-			ar.setTeamColor(0xFF0000FF);
-			registerRobot(ar, TeamSide.LEFT);
+			if(ar != null){
+				ar.setTeamColor(0xFF0000FF);
+				registerRobot(ar, TeamSide.LEFT);
+			}
 
 			Robot br = b.buildRobot(simulator, i);
-			br.setTeamColor(0xFFFFFF00);
-			registerRobot(br, TeamSide.RIGHT);
+			if(br != null){
+				br.setTeamColor(0xFFFFFF00);
+				registerRobot(br, TeamSide.RIGHT);
+			}
 		}
-
 	}
+
 
 	// If game is running or not
 	private boolean running = false;
@@ -142,13 +151,25 @@ public class GameController implements Drawable, Runnable{
 		Restart position of robots and ball
 	*/
 	public void restartPositions(){
-		for(Robot r:robots)
+		restartPositions(null);
+	}
+
+	/*
+		Restart position of robots and ball,
+		but gives vantage to the TeamSide, by placing it near the ball.
+		Example: Left team scored goal, so Right team starts with ball.
+	*/
+	public void restartPositions(TeamSide vantage){
+		moveBallToSpot(simulator.fieldCenter);
+
+		boolean vantageGiven = false;
+		
+		for(Robot r:robots){
 			placeRobot(r);
+		}
 
 		for(Robot r:robots)
 			startRobot(r);
-
-		moveBallToSpot(simulator.fieldCenter);
 	}
 
 	public void resumeGame(){

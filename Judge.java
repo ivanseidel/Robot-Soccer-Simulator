@@ -101,10 +101,10 @@ public class Judge{
 
 		if(b.colliding(simulator.goalLeft) && !b.colliding(simulator.fieldArea)){
 			controller.addPointsFor(TeamSide.RIGHT, 1);
-			controller.restartPositions();
+			controller.restartPositions(TeamSide.LEFT);
 		}else if(b.colliding(simulator.goalRight) && !b.colliding(simulator.fieldArea)){
 			controller.addPointsFor(TeamSide.LEFT, 1);
-			controller.restartPositions();
+			controller.restartPositions(TeamSide.RIGHT);
 			controller.resumeGame();
 		}
 	}

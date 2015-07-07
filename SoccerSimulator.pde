@@ -23,6 +23,8 @@ void setup(){
 		2
 	);
 
+	controller.getSimulator().setFieldSize(2.44f, 1.82f);
+
 	uiElements.add(controller);
 	size((int)controller.getWidth(gameScale) + 200, (int)controller.getHeight(gameScale)+100);
 }

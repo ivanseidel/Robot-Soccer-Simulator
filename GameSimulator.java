@@ -4,8 +4,8 @@ import java.util.*;
 
 public class GameSimulator implements Drawable{
 
-	private static final float FIELD_W = 2.44f;
-	private static final float FIELD_H = 1.82f;
+	private static float FIELD_W = 2.44f;
+	private static float FIELD_H = 1.82f;
 	private static final float WALL_TICK = 0.10f;
 
 	public Vector<Simulatable> simulatables = new Vector<Simulatable>();
@@ -27,6 +27,20 @@ public class GameSimulator implements Drawable{
 	public PVector fieldCenter;
 
 	GameSimulator(){
+		init();
+	}
+
+	public void setFieldSize(float w, float h){
+		FIELD_W = w;
+		FIELD_H = h;
+		init();
+	}
+
+	private void init(){
+		// Erase everything
+		simulatables.clear();
+		drawables.clear();
+
 		// Create Field
 		field = new Field(FIELD_W, FIELD_H);
 		drawables.add(field);
@@ -90,7 +104,6 @@ public class GameSimulator implements Drawable{
 			// drawables.add(goalWalls[i]);
 			simulatables.add(goalWalls[i]);
 		}
-		
 	}
 
 	float lastT = 0;

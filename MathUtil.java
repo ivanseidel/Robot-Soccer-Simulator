@@ -89,6 +89,38 @@ class MathUtil {
 			return Float.POSITIVE_INFINITY;
 	}
 
+	public static boolean pointInsideRect(PVector point, ShapeRect r, PVector rPos) {
+		float x0 = rPos.x - r.getWidth() / 2.0f;
+		float x1 = rPos.x + r.getWidth() / 2.0f;
+		float y0 = rPos.y - r.getHeight() / 2.0f;
+		float y1 = rPos.y + r.getHeight() / 2.0f;
+
+		return x0 <= point.x && point.x <= x1 && y0 <= point.y && point.y <= y1;
+	}
+
+	public static float distCircleToSegment(ShapeCircle c, PVector cPos, float x0, float y0, float x1, float y1) {
+		PVector segUnit = new PVector(x1 - x0, y1 - y0);
+		segUnit.normalize();
+
+		PVector v = new PVector(cPos.x - x0, cPos.y - y0);
+
+		float magAlongSeg = v.dot(segUnit);
+
+		PVector closest;
+		if (magAlongSeg <= 0f)
+			closest = new PVector(x0, y0);
+		else if (magAlongSeg >= (new PVector(x1 - x0, y1 - y0)).mag())
+			closest = new PVector(x1, y1);
+		else {
+			closest = new PVector(x0, y0);
+			PVector u = segUnit.get();
+			u.mult(magAlongSeg);
+			closest.add(u);
+		}
+
+		return distPointToCircle(closest, cPos, c.getRadius());
+	}
+
 	private static float distRayToSegment(PVector origin, float direction, float x0, float y0, float x1, float y1) {
 		// black magic a.k.a. vector algebra
 		// <http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect>

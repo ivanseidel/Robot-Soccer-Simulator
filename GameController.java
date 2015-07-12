@@ -29,14 +29,10 @@ public class GameController implements Drawable, Runnable{
 	// Instantied teams
 	Team a, b;
 
-	GameController(
-		Class<? extends Team> TeamAClass,
-		Class<? extends Team> TeamBClass,
-		int teamPlayers){
-
-		this.teamPlayers = Math.max(teamPlayers, 1);
-		this.TeamAClass = TeamAClass;
-		this.TeamBClass = TeamBClass;
+	GameController(Match match){
+		this.teamPlayers = Math.max(match.teamPlayers, 1);
+		this.TeamAClass = match.TeamAClass;
+		this.TeamBClass = match.TeamBClass;
 
 		judge = new Judge(this);
 

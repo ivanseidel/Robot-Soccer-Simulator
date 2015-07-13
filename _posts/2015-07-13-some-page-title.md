@@ -47,6 +47,7 @@ Match represents a single `Match` containing two `Team` classes for each side, a
 number of robots to be build/spawned in field.
 
 To initialize a `Match` setup do like this:
+
 ```java
 Match myMatch = new Match(
 	// Team A Class

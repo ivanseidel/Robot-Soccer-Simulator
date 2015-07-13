@@ -1,5 +1,5 @@
 # Site title and subtitle. This is used in _includes/header.html
-title: 'Robot Soccer Simulator - ROSOS'
+title: 'Robot-Soccer-Simulator'
 subtitle: 'An Open-Source Soccer simulator for virtual robots tournaments'
 
 # if you wish to integrate disqus on pages set your shortname here

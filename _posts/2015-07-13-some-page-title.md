@@ -20,6 +20,7 @@ Simulator, by passing the `class` name to it.
 ### A few words about Measurement Units
 
 We are using [SI](https://en.wikipedia.org/wiki/International_System_of_Units). That means:
+
 * Compriments are in *meters*
 * Mass is in *kilograms*
 * Time is measured in *seconds*
@@ -109,7 +110,8 @@ myController.getSimulator().setFieldSize(2.44f, 1.82f);
 If you notice, in the bottom of the `SoccerSimulator.pde` class, we have given you a few
 key shortcuts. That can be done by controlling the `gameController` class.
 
-A few usefull shortcuts:
+A few usefull shortcuts while running the Simulator:
+
 ```
 space: Resume/Pause Game
 i: initialize the entire game, and start.

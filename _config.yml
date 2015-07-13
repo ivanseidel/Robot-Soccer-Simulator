@@ -1,6 +1,6 @@
 # Site title and subtitle. This is used in _includes/header.html
-title: 'jekyll-docs-template'
-subtitle: 'Painless documentation for your projects'
+title: 'Robot Soccer Simulator - ROSOS'
+subtitle: 'An Open-Source Soccer simulator for virtual robots tournaments'
 
 # if you wish to integrate disqus on pages set your shortname here
 disqus_shortname: ''
@@ -15,7 +15,7 @@ google_analytics_id: ''
 navigation: 2
 
 # URL to source code, used in _includes/footer.html
-codeurl: 'https://github.com/bruth/jekyll-docs-template'
+codeurl: 'http://ivanseidel.github.io/Robot-Soccer-Simulator/'
 
 # Default categories (in order) to appear in the navigation
 sections: [

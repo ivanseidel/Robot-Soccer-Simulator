@@ -103,31 +103,10 @@ public class Simulatable{
 				// System.out.println("Collide BLOCK w CIRCLE: "+this+" with "+that);
 
 				// Rough check is OK, let's do the actual verification now
-
-				float minDist = Float.POSITIVE_INFINITY;
-
-				// TODO refactor this list of edges into ShapeRect
-				// endpoints
-				float end_x0 = rPos.x - r.getWidth() / 2.0f;
-				float end_x1 = rPos.x + r.getWidth() / 2.0f;
-				float end_y0 = rPos.y - r.getHeight() / 2.0f;
-				float end_y1 = rPos.y + r.getHeight() / 2.0f;
-				float xs[] = new float[] { end_x0, end_x1, end_x1, end_x0 };
-				float ys[] = new float[] { end_y0, end_y0, end_y1, end_y1 };
-
-				// edges
-				for (int i = 0; i < 4; i++) {
-					float x0 = xs[i];
-					float y0 = ys[i];
-					float x1 = xs[(i + 1) % 4];
-					float y1 = ys[(i + 1) % 4];
-
-					minDist = Math.min(minDist, MathUtil.distCircleToSegment(c, cPos, x0, y0, x1, y1));
-				}
-
 				// Two cases for collision: some segment intersects circle,
 				// or circle inside rect
-				return minDist <= 0f || MathUtil.pointInsideRect(cPos, r, rPos);
+				return MathUtil.distCircleToRect(c, cPos, r, rPos) <= 0f ||
+					   MathUtil.pointInsideRect(cPos, r, rPos);
 			}
 		}else{
 			System.out.println("Exception: Cannot handle Collision with unknown types");
@@ -165,19 +144,13 @@ public class Simulatable{
 			ShapeCircle c = (ShapeCircle)(this instanceof ShapeCircle ? this : that);
 			ShapeRect r = (ShapeRect)(this instanceof ShapeRect ? this : that);
 
-			float scale = r.getHeight() / r.getWidth();
-			P.x = P.x * scale;
+			PVector cPos = ((Simulatable) c).position;
+			PVector rPos = ((Simulatable) r).position;
 
-			if(Math.abs(P.x) > Math.abs(P.y))
-				P.y = 0;
-			else
-				P.x = 0;
+			dist = MathUtil.distCircleToRect(c, cPos, r, rPos);
 
-			P.x = P.x / scale;
-
-			float rectSize = (P.x != 0 ? (r.getWidth()/2) : 0) + (P.y != 0 ? (r.getHeight()/2) : 0);
-			dist = P.mag() - rectSize - c.getRadius();
-
+			PVector collisionPoint = MathUtil.closestToCircleInRect(c, cPos, r, rPos);
+			P = PVector.sub(collisionPoint, cPos);
 			P.normalize();
 
 		}else{

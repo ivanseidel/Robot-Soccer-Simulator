@@ -101,7 +101,12 @@ public class Simulatable{
 				cPos.y <= rPos.y + r.getHeight()/2 + radius){
 				
 				// System.out.println("Collide BLOCK w CIRCLE: "+this+" with "+that);
-				return true;
+
+				// Rough check is OK, let's do the actual verification now
+				// Two cases for collision: some segment intersects circle,
+				// or circle inside rect
+				return MathUtil.distCircleToRect(c, cPos, r, rPos) <= 0f ||
+					   MathUtil.pointInsideRect(cPos, r, rPos);
 			}
 		}else{
 			System.out.println("Exception: Cannot handle Collision with unknown types");
@@ -139,19 +144,13 @@ public class Simulatable{
 			ShapeCircle c = (ShapeCircle)(this instanceof ShapeCircle ? this : that);
 			ShapeRect r = (ShapeRect)(this instanceof ShapeRect ? this : that);
 
-			float scale = r.getHeight() / r.getWidth();
-			P.x = P.x * scale;
+			PVector cPos = ((Simulatable) c).position;
+			PVector rPos = ((Simulatable) r).position;
 
-			if(Math.abs(P.x) > Math.abs(P.y))
-				P.y = 0;
-			else
-				P.x = 0;
+			dist = MathUtil.distCircleToRect(c, cPos, r, rPos);
 
-			P.x = P.x / scale;
-
-			float rectSize = (P.x != 0 ? (r.getWidth()/2) : 0) + (P.y != 0 ? (r.getHeight()/2) : 0);
-			dist = P.mag() - rectSize - c.getRadius();
-
+			PVector collisionPoint = MathUtil.closestToCircleInRect(c, cPos, r, rPos);
+			P = PVector.sub(collisionPoint, cPos);
 			P.normalize();
 
 		}else{

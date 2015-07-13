@@ -89,6 +89,91 @@ class MathUtil {
 			return Float.POSITIVE_INFINITY;
 	}
 
+	public static boolean pointInsideRect(PVector point, ShapeRect r, PVector rPos) {
+		float x0 = rPos.x - r.getWidth() / 2.0f;
+		float x1 = rPos.x + r.getWidth() / 2.0f;
+		float y0 = rPos.y - r.getHeight() / 2.0f;
+		float y1 = rPos.y + r.getHeight() / 2.0f;
+
+		return x0 <= point.x && point.x <= x1 && y0 <= point.y && point.y <= y1;
+	}
+
+	public static float distCircleToRect(ShapeCircle c, PVector cPos, ShapeRect r, PVector rPos) {
+		return distPointToCircle(
+			closestToCircleInRect(c, cPos, r, rPos),
+			cPos,
+			c.getRadius()
+		);
+	}
+
+	public static PVector closestToCircleInRect(ShapeCircle c, PVector cPos, ShapeRect r, PVector rPos) {
+		float minDist = Float.POSITIVE_INFINITY;
+
+		// endpoints
+		float end_x0 = rPos.x - r.getWidth() / 2.0f;
+		float end_x1 = rPos.x + r.getWidth() / 2.0f;
+		float end_y0 = rPos.y - r.getHeight() / 2.0f;
+		float end_y1 = rPos.y + r.getHeight() / 2.0f;
+		float xs[] = new float[] { end_x0, end_x1, end_x1, end_x0 };
+		float ys[] = new float[] { end_y0, end_y0, end_y1, end_y1 };
+
+		PVector point = null;
+
+		// edges
+		for (int i = 0; i < 4; i++) {
+			float x0 = xs[i];
+			float y0 = ys[i];
+			float x1 = xs[(i + 1) % 4];
+			float y1 = ys[(i + 1) % 4];
+
+			float dist = distCircleToSegment(c, cPos, x0, y0, x1, y1);
+			if (dist < minDist) {
+				minDist = dist;
+				point = closestToCircleInSegment(c, cPos, x0, y0, x1, y1);
+			}
+		}
+
+		if (point == null) {
+			System.out.println("WARNING: could not find closest point to circle " + c + " at " + cPos);
+			point = rPos.get();
+			point.x -= r.getWidth() / 2.0f;
+			point.y -= r.getHeight() / 2.0f;
+		}
+
+		return point;
+	}
+
+	private static float distCircleToSegment(ShapeCircle c, PVector cPos, float x0, float y0, float x1, float y1) {
+		return distPointToCircle(
+			closestToCircleInSegment(c, cPos, x0, y0, x1, y1),
+			cPos,
+			c.getRadius()
+		);
+	}
+
+	private static PVector closestToCircleInSegment(ShapeCircle c, PVector cPos, float x0, float y0, float x1, float y1) {
+		PVector segUnit = new PVector(x1 - x0, y1 - y0);
+		segUnit.normalize();
+
+		PVector v = new PVector(cPos.x - x0, cPos.y - y0);
+
+		float magAlongSeg = v.dot(segUnit);
+
+		PVector closest;
+		if (magAlongSeg <= 0f)
+			closest = new PVector(x0, y0);
+		else if (magAlongSeg >= (new PVector(x1 - x0, y1 - y0)).mag())
+			closest = new PVector(x1, y1);
+		else {
+			closest = new PVector(x0, y0);
+			PVector u = segUnit.get();
+			u.mult(magAlongSeg);
+			closest.add(u);
+		}
+
+		return closest;
+	}
+
 	private static float distRayToSegment(PVector origin, float direction, float x0, float y0, float x1, float y1) {
 		// black magic a.k.a. vector algebra
 		// <http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect>

@@ -1,4 +1,4 @@
-public class ForwardTeam implements Team{
+public class CustomForwardTeam implements Team{
 
     public String getTeamName(){
         return "Forward";

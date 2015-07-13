@@ -1,7 +1,3 @@
-/*
- * Use the file MatchConfig.java to define which teams are going play the match
- */
-
 ArrayList<Drawable> uiElements = new ArrayList<Drawable>();
 
 GameController controller;
@@ -9,7 +5,17 @@ GameSimulator simulator;
 
 float gameScale = 300f;
 void setup(){
-	controller = new GameController(MatchConfig.getMatch());
+	/*
+	 * Define the teams for the current match here
+	 */
+	controller = new GameController(new Match(
+		// Team A Class
+		CustomTeamA.class,
+		// Team B Class
+		CustomTeamB.class,
+		// Number of robots on each side
+		2
+	));
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);
 

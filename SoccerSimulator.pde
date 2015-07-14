@@ -1,9 +1,7 @@
-ArrayList<Drawable> uiElements = new ArrayList<Drawable>();
-
 GameController controller;
 GameSimulator simulator;
 
-float gameScale = 300f;
+float SCALE = 300f;
 void setup(){
 	/*
 	 * Define the teams for the current match here
@@ -19,8 +17,7 @@ void setup(){
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);
 
-	uiElements.add(controller);
-	size((int)controller.getWidth(gameScale) + 200, (int)controller.getHeight(gameScale)+100);
+	size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE)+100);
 }
 
 void draw(){
@@ -30,14 +27,12 @@ void draw(){
 	controller.run();
 
 	translate(100, 0);
-	for(Drawable d:uiElements)
-		d.draw(this, gameScale);
-
+	controller.draw(this, SCALE);
 	translate(-100, 0);
 }
 
 public void mouseDragged(){
-	controller.moveBallToSpot(new PVector((mouseX - 100) / gameScale, (mouseY - 100) / gameScale));
+	controller.moveBallToSpot(new PVector((mouseX - 100) / SCALE, (mouseY - 100) / SCALE));
 }
 
 public void keyPressed(){

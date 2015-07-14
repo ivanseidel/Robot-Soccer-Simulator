@@ -22,7 +22,7 @@ public class CustomForwardTeam implements Team{
         }
 
         public void loop(){
-            setSpeed(0.5f,0.028f);
+            setSpeed(0.5f,0);
             delay(100);
         }
     }

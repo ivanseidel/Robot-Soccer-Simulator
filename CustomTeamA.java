@@ -25,11 +25,11 @@ public class CustomTeamA implements Team{
  
         float speedMultiplier = (float)Math.random() * 5 + 5;
  
-        SensorBall locator;
+        Sensor locator;
 
         public void setup(){
             System.out.println("Running!");
-            locator = (SensorBall)getSensor("BALL");
+            locator = getSensor("BALL");
         }
 
         public void loop(){

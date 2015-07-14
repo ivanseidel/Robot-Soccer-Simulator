@@ -27,21 +27,21 @@ public class CustomTeamB implements Team{
             super(s);
         }
  
-        SensorBall locator;
-        SensorCompass compass;
-        SensorDistance[] ultrasonic_sensors = new SensorDistance[4];
+        Sensor locator;
+        Sensor compass;
+        Sensor[] ultrasonic_sensors = new Sensor[4];
         float goalDir;
 
         public void setup(){
             System.out.println("Running!");
 
-            locator = (SensorBall)getSensor("BALL");
-            compass = (SensorCompass)getSensor("COMPASS");
+            locator = getSensor("BALL");
+            compass = getSensor("COMPASS");
 
-            ultrasonic_sensors[UsSensors.FRONT] = (SensorDistance)getSensor("ULTRASONIC_FRONT");
-            ultrasonic_sensors[UsSensors.LEFT] = (SensorDistance)getSensor("ULTRASONIC_LEFT");
-            ultrasonic_sensors[UsSensors.BACK] = (SensorDistance)getSensor("ULTRASONIC_BACK");
-            ultrasonic_sensors[UsSensors.RIGHT] = (SensorDistance)getSensor("ULTRASONIC_RIGHT");
+            ultrasonic_sensors[UsSensors.FRONT] = getSensor("ULTRASONIC_FRONT");
+            ultrasonic_sensors[UsSensors.LEFT] = getSensor("ULTRASONIC_LEFT");
+            ultrasonic_sensors[UsSensors.BACK] = getSensor("ULTRASONIC_BACK");
+            ultrasonic_sensors[UsSensors.RIGHT] = getSensor("ULTRASONIC_RIGHT");
 
             goalDir = 0f;
             // Find Goal Direction

@@ -12,7 +12,7 @@ void setup(){
 		// Team B Class
 		CustomTeamB.class,
 		// Number of robots on each side
-		2, 0
+		2
 	));
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);

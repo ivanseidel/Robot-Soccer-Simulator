@@ -2,9 +2,12 @@
 layout: default
 title: "Basics"
 category: doc
-date: 2015-07-13 18:17:37
+date: 2015-07-13 18:17:38 
 order: 1
 ---
+
+## Basics
+
 
 ### How the Simulator handles Teams
 

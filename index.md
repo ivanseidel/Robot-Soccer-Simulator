@@ -5,12 +5,14 @@ title: "Home"
 ### *RObot SOccer Simulator* (ROSOS)
 This is an ongoing project, to create a tournament of Simulated robots lying over Processing.
 
-### Where can I learn more about Robot Soccer Simulator (ROSOS)?
+### Where can I learn more about (ROSOS)?
 1. In the [GitHub Page](https://github.com/ivanseidel/Robot-Soccer-Simulator/wiki) of this Repository (where you are right now)
 2. In the [ROSOS Youtube channel](https://www.youtube.com/channel/UCZekRTPIwhe56lbicQpO-vg)
 3. If you have any material that you want to share, open an issue in the [Issues](https://github.com/ivanseidel/Robot-Soccer-Simulator/issues) page.
 
 ### What is ROSOS?
+
+![ROSOS](/Robot-Soccer-Simulator/images/window.png "ROSOS")
 
 The simulator was developed thinking about compatibility with major operating systems, and facility to develop and test, without further deep knowledge about "terminal" commands or deep understanding about compilation and building code from scratch.
 

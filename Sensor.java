@@ -22,6 +22,13 @@ class Sensor{
 		return null;
 	}
 
+	/*
+		Performs readings and returns the value at index
+	*/
+	public float readValue(int index){
+		return readValues()[index];
+	}
+
 	/**
 	 * Applies random noise to a given value
 	 *

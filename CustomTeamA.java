@@ -34,7 +34,7 @@ public class CustomTeamA implements Team{
 
         public void loop(){
             float[] vals = locator.readValues();
-            float angle = vals[0];
+            float angle = locator.readValue(0);
 
             setRotation(angle * speedMultiplier);
             setSpeed(0.5f,0);
@@ -49,22 +49,21 @@ public class CustomTeamA implements Team{
 
         float divisor = (float)Math.random() * 150 + 70;
  
-        SensorBall locator;
+        Sensor locator;
         // Front, left, back, right
-        SensorDistance[] ultrasonic_sensors = new SensorDistance[4];
+        Sensor[] ultrasonic_sensors = new Sensor[4];
         
         public void run(){
-            locator = (SensorBall)getSensor("BALL");
+            locator = getSensor("BALL");
 
-            ultrasonic_sensors[0] = (SensorDistance)getSensor("ULTRASONIC_FRONT");
-            ultrasonic_sensors[1] = (SensorDistance)getSensor("ULTRASONIC_LEFT");
-            ultrasonic_sensors[2] = (SensorDistance)getSensor("ULTRASONIC_BACK");
-            ultrasonic_sensors[3] = (SensorDistance)getSensor("ULTRASONIC_RIGHT");
+            ultrasonic_sensors[0] = getSensor("ULTRASONIC_FRONT");
+            ultrasonic_sensors[1] = getSensor("ULTRASONIC_LEFT");
+            ultrasonic_sensors[2] = getSensor("ULTRASONIC_BACK");
+            ultrasonic_sensors[3] = getSensor("ULTRASONIC_RIGHT");
  
             System.out.println("Running!");
             while(true){
-                float[] vals = locator.readValues();
-                float angle = vals[0];
+                float angle = locator.readValue(0);
  
                 if(Math.abs(angle) < 90)
                     setSpeed(0f, angle / divisor);

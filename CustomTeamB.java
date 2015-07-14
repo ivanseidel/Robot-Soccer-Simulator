@@ -50,9 +50,9 @@ public class CustomTeamB implements Team{
         }
 
         public void loop(){
-            float ballAngle = locator.readValues()[0];
-            float ballDist = locator.readValues()[1];
-            float comp = compass.readValues()[0];
+            float ballAngle = locator.readValue(0);
+            float ballDist = locator.readValue(1);
+            float comp = compass.readValue(0);
 
             // Correct Angle with compass
             setRotation(MathUtil.relativeAngle(goalDir - comp) * 1f);
@@ -72,10 +72,10 @@ public class CustomTeamB implements Team{
                 vY = -2;
             }
 
-            float left = ultrasonic_sensors[UsSensors.LEFT].readValues()[0];
-            float right = ultrasonic_sensors[UsSensors.RIGHT].readValues()[0];
-            float front = ultrasonic_sensors[UsSensors.FRONT].readValues()[0];
-            float back = ultrasonic_sensors[UsSensors.BACK].readValues()[0];
+            float left = ultrasonic_sensors[UsSensors.LEFT].readValue(0);
+            float right = ultrasonic_sensors[UsSensors.RIGHT].readValue(0);
+            float front = ultrasonic_sensors[UsSensors.FRONT].readValue(0);
+            float back = ultrasonic_sensors[UsSensors.BACK].readValue(0);
 
             // Avoid contact with other objects and robots
             float threshold = .1f;

@@ -19,20 +19,14 @@ public class GameController implements Drawable, Runnable{
 	// Global start time of simulation (to know relative time from beginning)
 	private long startTime;
 
-	// Number of desired players for each side
-	private int teamPlayers;
-
-	// Classes of Teams
-	private Class TeamAClass;
-	private Class TeamBClass;
+	// Match configuration for this Game
+	private Match match;
 
 	// Instantied teams
 	Team a, b;
 
 	GameController(Match match){
-		this.teamPlayers = Math.max(match.teamPlayers, 1);
-		this.TeamAClass = match.TeamAClass;
-		this.TeamBClass = match.TeamBClass;
+		this.match = match;
 
 		judge = new Judge(this);
 
@@ -110,8 +104,8 @@ public class GameController implements Drawable, Runnable{
 		}
 		
 		try{
-			a = (Team)(invertSide ? TeamBClass : TeamAClass).newInstance();
-			b = (Team)(invertSide ? TeamAClass : TeamBClass).newInstance();
+			a = (Team)(invertSide ? match.TeamBClass : match.TeamAClass).newInstance();
+			b = (Team)(invertSide ? match.TeamAClass : match.TeamBClass).newInstance();
 		}catch(Exception e){
 			System.out.println(e.toString());
 			System.exit(1);
@@ -121,13 +115,17 @@ public class GameController implements Drawable, Runnable{
 		a.setTeamSide(TeamSide.LEFT);
 		b.setTeamSide(TeamSide.RIGHT);
 
-		for(int i = 0; i < teamPlayers; i++){
+		// Build Robots for Team A
+		for(int i = 0; i < match.teamAPlayers; i++){
 			Robot ar = a.buildRobot(simulator, i);
 			if(ar != null){
 				ar.setTeamColor(0xFF0000FF);
 				registerRobot(ar, TeamSide.LEFT);
 			}
+		}
 
+		// Build Robots for Team B
+		for(int i = 0; i < match.teamBPlayers; i++){
 			Robot br = b.buildRobot(simulator, i);
 			if(br != null){
 				br.setTeamColor(0xFFFFFF00);

@@ -8,11 +8,11 @@ This is an ongoing project, to create a tournament of Simulated robots lying ove
 4. Have fun.
 
 ## Where can I learn more about Robot Soccer Simulator (ROSOS)?
-1. In the [Wiki](https://github.com/ivanseidel/Robot-Soccer-Simulator/wiki) of this Repository
+1. In the [GitHub Page](http://ivanseidel.github.io/Robot-Soccer-Simulator) of this Repository
 2. In the [ROSOS Youtube channel](https://www.youtube.com/channel/UCZekRTPIwhe56lbicQpO-vg)
 3. If you have any material that you want to share, open an issue in the [Issues](https://github.com/ivanseidel/Robot-Soccer-Simulator/issues) page.
 
 ## Documentation
-Please go to the [Robot Soccer Simulator Wiki](https://github.com/ivanseidel/Robot-Soccer-Simulator/wiki)
+Please go to the [GitHub Page](http://ivanseidel.github.io/Robot-Soccer-Simulator)
 
-*Credits: Felipe Nascimento Martins, Ivan Seidel Gomes, Renato Ferreira*
+*Credits: Felipe Nascimento Martins, Ivan Seidel Gomes, Renato Ferreira and João Pedro Vilas*

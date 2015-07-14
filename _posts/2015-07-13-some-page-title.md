@@ -61,6 +61,17 @@ Match myMatch = new Match(
 	// Number of robots on each side
 	2
 );
+
+// If you want a different number of robots on each side:
+Match myMatch = new Match(
+	CustomTeamA.class,
+	CustomTeamB.class,
+
+	// Number of robots on side A
+	2,
+	// Number of robots on side B
+	3
+);
 ```
 
 If you have created a `Team` class, your Class name should go in one side or another in the Match instantiation, with the `.class`.

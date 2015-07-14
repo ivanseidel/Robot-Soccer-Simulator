@@ -33,7 +33,6 @@ public class CustomTeamA implements Team{
         }
 
         public void loop(){
-            float[] vals = locator.readValues();
             float angle = locator.readValue(0);
 
             setRotation(angle * speedMultiplier);

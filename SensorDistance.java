@@ -5,7 +5,7 @@ import processing.core.*;
  * Readings are synchronous and blocking.
  */
 
-class UsDistanceSensor extends RobotSensor{
+class SensorDistance extends Sensor{
 
 	// Random noise applied to the final reading
 	private static final float NOISE_AMOUNT = .01f;
@@ -13,7 +13,7 @@ class UsDistanceSensor extends RobotSensor{
 	// Angle in degrees between robot's heading and sensor heading
 	public float localOrientation = 0f;
 
-	UsDistanceSensor(GameSimulator g, Robot r, float localOrientation) {
+	SensorDistance(GameSimulator g, Robot r, float localOrientation) {
 		super(g, r);
 		this.localOrientation = localOrientation;
 	}

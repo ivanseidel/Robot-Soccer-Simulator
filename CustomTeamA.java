@@ -25,11 +25,11 @@ public class CustomTeamA implements Team{
  
         float speedMultiplier = (float)Math.random() * 5 + 5;
  
-        BallLocator locator;
+        SensorBall locator;
 
         public void setup(){
             System.out.println("Running!");
-            locator = (BallLocator)getSensor("BALL");
+            locator = (SensorBall)getSensor("BALL");
         }
 
         public void loop(){
@@ -49,17 +49,17 @@ public class CustomTeamA implements Team{
 
         float divisor = (float)Math.random() * 150 + 70;
  
-        BallLocator locator;
+        SensorBall locator;
         // Front, left, back, right
-        UsDistanceSensor[] ultrasonic_sensors = new UsDistanceSensor[4];
+        SensorDistance[] ultrasonic_sensors = new SensorDistance[4];
         
         public void run(){
-            locator = (BallLocator)getSensor("BALL");
+            locator = (SensorBall)getSensor("BALL");
 
-            ultrasonic_sensors[0] = (UsDistanceSensor)getSensor("ULTRASONIC_FRONT");
-            ultrasonic_sensors[1] = (UsDistanceSensor)getSensor("ULTRASONIC_LEFT");
-            ultrasonic_sensors[2] = (UsDistanceSensor)getSensor("ULTRASONIC_BACK");
-            ultrasonic_sensors[3] = (UsDistanceSensor)getSensor("ULTRASONIC_RIGHT");
+            ultrasonic_sensors[0] = (SensorDistance)getSensor("ULTRASONIC_FRONT");
+            ultrasonic_sensors[1] = (SensorDistance)getSensor("ULTRASONIC_LEFT");
+            ultrasonic_sensors[2] = (SensorDistance)getSensor("ULTRASONIC_BACK");
+            ultrasonic_sensors[3] = (SensorDistance)getSensor("ULTRASONIC_RIGHT");
  
             System.out.println("Running!");
             while(true){

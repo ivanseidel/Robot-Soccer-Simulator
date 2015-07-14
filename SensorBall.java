@@ -1,11 +1,11 @@
 import processing.core.*;
 
-class BallLocator extends RobotSensor{
+class SensorBall extends Sensor{
 
 	float[] values = new float[2];
 	float sensorLimit = 1f;
 
-	BallLocator(GameSimulator g, Robot r){
+	SensorBall(GameSimulator g, Robot r){
 		super(g, r);
 	}
 

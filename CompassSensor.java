@@ -1,6 +1,6 @@
 import processing.core.*;
 
-class CompassSensor extends RobotSensor{
+class SensorCompass extends Sensor{
 
 	// Random noise applyed to the final reading
 	private static final int NOISE_AMOUNT = 3;
@@ -10,7 +10,7 @@ class CompassSensor extends RobotSensor{
 
 	float[] values = new float[1];
 
-	CompassSensor(GameSimulator g, Robot r){
+	SensorCompass(GameSimulator g, Robot r){
 		super(g, r);
 	}
 

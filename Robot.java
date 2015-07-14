@@ -11,8 +11,8 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 	/*
 		Robot Sensors ArrayList, where each of them can be read.
 	*/
-	private HashMap<String, RobotSensor> mappedSensors = new HashMap<String, RobotSensor>();
-	private ArrayList<RobotSensor> sensors = new ArrayList<RobotSensor>();
+	private HashMap<String, Sensor> mappedSensors = new HashMap<String, Sensor>();
+	private ArrayList<Sensor> sensors = new ArrayList<Sensor>();
 
 	/*
 		Physics attributes used to simulate orientation and position of robot
@@ -57,7 +57,7 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 	/*
 		Register a sensor inside this robot, with the given ID
 	*/
-	protected void registerSensor(RobotSensor sensor, String ID){
+	protected void registerSensor(Sensor sensor, String ID){
 		mappedSensors.put(ID, sensor);
 		sensors.add(sensor);
 	}
@@ -65,7 +65,7 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 	/*
 		Returns the Sensor with the specified ID
 	*/
-	public RobotSensor getSensor(String ID){
+	public Sensor getSensor(String ID){
 		return mappedSensors.get(ID);
 	}
 

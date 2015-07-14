@@ -27,21 +27,21 @@ public class CustomTeamB implements Team{
             super(s);
         }
  
-        BallLocator locator;
-        CompassSensor compass;
-        UsDistanceSensor[] ultrasonic_sensors = new UsDistanceSensor[4];
+        SensorBall locator;
+        SensorCompass compass;
+        SensorDistance[] ultrasonic_sensors = new SensorDistance[4];
         float goalDir;
 
         public void setup(){
             System.out.println("Running!");
 
-            locator = (BallLocator)getSensor("BALL");
-            compass = (CompassSensor)getSensor("COMPASS");
+            locator = (SensorBall)getSensor("BALL");
+            compass = (SensorCompass)getSensor("COMPASS");
 
-            ultrasonic_sensors[UsSensors.FRONT] = (UsDistanceSensor)getSensor("ULTRASONIC_FRONT");
-            ultrasonic_sensors[UsSensors.LEFT] = (UsDistanceSensor)getSensor("ULTRASONIC_LEFT");
-            ultrasonic_sensors[UsSensors.BACK] = (UsDistanceSensor)getSensor("ULTRASONIC_BACK");
-            ultrasonic_sensors[UsSensors.RIGHT] = (UsDistanceSensor)getSensor("ULTRASONIC_RIGHT");
+            ultrasonic_sensors[UsSensors.FRONT] = (SensorDistance)getSensor("ULTRASONIC_FRONT");
+            ultrasonic_sensors[UsSensors.LEFT] = (SensorDistance)getSensor("ULTRASONIC_LEFT");
+            ultrasonic_sensors[UsSensors.BACK] = (SensorDistance)getSensor("ULTRASONIC_BACK");
+            ultrasonic_sensors[UsSensors.RIGHT] = (SensorDistance)getSensor("ULTRASONIC_RIGHT");
 
             goalDir = 0f;
             // Find Goal Direction
@@ -79,9 +79,9 @@ public class CustomTeamB implements Team{
 
             // Avoid contact with other objects and robots
             float threshold = .1f;
-            if (left < threshold)
+            if (left < threshold / 2)
                 vX = .5f;
-            else if (right < threshold)
+            else if (right < threshold / 2)
                 vX = -.5f;
             if (front < threshold)
                 vY = -.5f;

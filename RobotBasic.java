@@ -8,22 +8,22 @@ class RobotBasic extends Robot{
 
 	protected void initializeSensors(GameSimulator game){
 
-		BallLocator locator = new BallLocator(game, this);
+		SensorBall locator = new SensorBall(game, this);
 		registerSensor(locator, "BALL");
 
-		CompassSensor compass = new CompassSensor(game, this);
+		SensorCompass compass = new SensorCompass(game, this);
 		registerSensor(compass, "COMPASS");
 
-		UsDistanceSensor ultrasonic_left = new UsDistanceSensor(game, this, 270f);
+		SensorDistance ultrasonic_left = new SensorDistance(game, this, 270f);
 		registerSensor(ultrasonic_left, "ULTRASONIC_LEFT");
 
-		UsDistanceSensor ultrasonic_right = new UsDistanceSensor(game, this, 90f);
+		SensorDistance ultrasonic_right = new SensorDistance(game, this, 90f);
 		registerSensor(ultrasonic_right, "ULTRASONIC_RIGHT");
 
-		UsDistanceSensor ultrasonic_front = new UsDistanceSensor(game, this, 0f);
+		SensorDistance ultrasonic_front = new SensorDistance(game, this, 0f);
 		registerSensor(ultrasonic_front, "ULTRASONIC_FRONT");
 
-		UsDistanceSensor ultrasonic_back = new UsDistanceSensor(game, this, 180f);
+		SensorDistance ultrasonic_back = new SensorDistance(game, this, 180f);
 		registerSensor(ultrasonic_back, "ULTRASONIC_BACK");
 
 	}

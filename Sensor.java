@@ -1,8 +1,8 @@
-class RobotSensor{
+class Sensor{
 	protected GameSimulator game;
 	protected Robot robot;
 
-	RobotSensor(GameSimulator g, Robot r){
+	Sensor(GameSimulator g, Robot r){
 		game = g;
 		robot = r;
 	}

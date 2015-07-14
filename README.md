@@ -1,11 +1,13 @@
 # *RObot SOccer Simulator* - ROSOS
 This is an ongoing project, to create a tournament of Simulated robots lying over Processing.
 
-## Usage
+## Install & Setup
 1. [Download](https://github.com/ivanseidel/Robot-Soccer-Simulator/archive/master.zip) the code from GitHub.
 2. Rename the Unzipped folder to `SoccerSimulator`
 3. Open the `SoccerSimulator.pde` file with Processing
 4. Have fun.
+
+![ROSOS](https://raw.githubusercontent.com/ivanseidel/Robot-Soccer-Simulator/master/images/window.png "ROSOS")
 
 ## Where can I learn more about Robot Soccer Simulator (ROSOS)?
 1. In the [GitHub Page](http://ivanseidel.github.io/Robot-Soccer-Simulator) of this Repository

@@ -82,7 +82,7 @@ public class MyCustomTeam implements Team{
 And here comes the declaration of the Class, extending the class `RobotBasic` that as said,
 should be inside the Team class:
 
-```
+```java
 public class MyRobot extends RobotBasic{
 	// This constructor method should be exactly like this,
 	// just with it's name matching your robot class name.

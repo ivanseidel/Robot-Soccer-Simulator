@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Jekyll Docs Template"
+title: "Home"
 ---
 ### *RObot SOccer Simulator* (ROSOS)
 This is an ongoing project, to create a tournament of Simulated robots lying over Processing.

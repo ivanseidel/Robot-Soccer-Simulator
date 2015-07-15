@@ -20,7 +20,7 @@ codeurl: 'https://github.com/ivanseidel/Robot-Soccer-Simulator'
 # Default categories (in order) to appear in the navigation
 sections: [
     ['doc', 'Documentation'],
-    ['sensors', 'Sensors'],
+    ['sensor', 'Sensors'],
     ['tut', 'Tutorial'],
     ['ref', 'Reference'],
     ['dev', 'Developers'],

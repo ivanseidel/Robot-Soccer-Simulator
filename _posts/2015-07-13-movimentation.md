@@ -66,3 +66,6 @@ When moving, you can easily use both methods by calling one after the other:
 setSpeed(1, 0);
 setRotation(10);
 ```
+
+#### [Video: Movimentation]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RLGi54Yq5LM" frameborder="0" allowfullscreen></iframe>

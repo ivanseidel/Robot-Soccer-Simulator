@@ -39,3 +39,6 @@ In case the ball is too far from the robot (usually > 1 meter), the output will 
 `angle` and `distance`.
 
 Those values are also subjected to random noises.
+
+#### [Video: Ball Sensor]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BjIsj9V_vrg" frameborder="0" allowfullscreen></iframe>

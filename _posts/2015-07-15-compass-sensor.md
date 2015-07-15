@@ -5,8 +5,6 @@ category: sensor
 date: 2015-07-15 00:00:58
 order: 1
 ---
-## Compass Sensor
-
 Compass Sensor provides your robot with information about it's absolute angle. It's value goes
 from 0-360 degrees, and it **always** points in the same direction, regardless of your Team Side.
 

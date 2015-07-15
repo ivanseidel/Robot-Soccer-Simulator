@@ -5,7 +5,6 @@ category: doc
 date: 2015-07-13 18:44:30
 order: 0
 ---
-
 ### Install & Setup
 1. [Download](https://github.com/ivanseidel/Robot-Soccer-Simulator/archive/master.zip) the code from GitHub.
 2. Rename the Unzipped folder to `SoccerSimulator`

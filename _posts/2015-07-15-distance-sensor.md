@@ -5,8 +5,6 @@ category: sensor
 date: 2015-07-15 00:01:02
 order: 2
 ---
-## Distance Sensor
-
 The Distance sensor provides your robot with information about proximity to objects in the
 simulation.
 

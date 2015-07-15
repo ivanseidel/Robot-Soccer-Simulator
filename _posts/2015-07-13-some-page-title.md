@@ -5,8 +5,6 @@ category: doc
 date: 2015-07-13 18:17:38 
 order: 1
 ---
-## Basics
-
 ### How the Simulator handles Teams
 
 Every Robot created and programmed inside the Simulator, must be declared and coded inside the

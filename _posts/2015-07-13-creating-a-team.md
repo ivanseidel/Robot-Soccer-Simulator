@@ -5,8 +5,6 @@ category: doc
 date: 2015-07-13 19:55:10
 order: 2
 ---
-## Creating a Team
-
 ### How to create a team in a few steps
 
 #### Step 1: Create a new File.

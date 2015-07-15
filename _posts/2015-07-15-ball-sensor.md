@@ -5,8 +5,6 @@ category: sensor
 date: 2015-07-15 00:00:52
 order: 0
 ---
-## Ball Sensor
-
 Ball sensor is the most imoportant sensor to your robot. It provides you with information
 about the relative angle from your robot to the ball, as well as it's distance.
 

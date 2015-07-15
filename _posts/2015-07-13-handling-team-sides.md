@@ -5,8 +5,6 @@ category: doc
 date: 2015-07-13 18:54:21
 order: 10
 ---
-## Handling team sides
-
 ### Why is it important?
 Really straight forward: to score goals in the right goal.
 

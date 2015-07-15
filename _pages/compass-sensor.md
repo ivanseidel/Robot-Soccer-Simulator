@@ -1,0 +1,1 @@
+../_posts/2015-07-15-compass-sensor.md

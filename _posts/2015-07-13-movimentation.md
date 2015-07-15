@@ -5,8 +5,6 @@ category: doc
 date: 2015-07-13 18:48:23
 order: 3
 ---
-## Movimentation
-
 ### Movimenting your robot
 
 Forward, Backward, Left, Right and Turn. Those are the basic movements needed to

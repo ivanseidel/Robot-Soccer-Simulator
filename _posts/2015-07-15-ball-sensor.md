@@ -8,6 +8,8 @@ order: 0
 Ball sensor is the most imoportant sensor to your robot. It provides you with information
 about the relative angle from your robot to the ball, as well as it's distance.
 
+![Ball Sensor](/Robot-Soccer-Simulator/images/sensor-ball.png "Ball Sensor")
+
 The angle goes from -180 to 180, relative to your robot's orientation.
 
 The distance, goes from 0 to the limit of the sensor (around 1 meter). If this limit is reached,

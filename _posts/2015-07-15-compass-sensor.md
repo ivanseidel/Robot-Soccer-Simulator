@@ -8,6 +8,8 @@ order: 1
 Compass Sensor provides your robot with information about it's absolute angle. It's value goes
 from 0-360 degrees, and it **always** points in the same direction, regardless of your Team Side.
 
+![Compass Sensor](/Robot-Soccer-Simulator/images/sensor-compass.png "Compass Sensor")
+
 ### RobotBasic ID
 
 `RobotBasic` class provides you with one `SensorCompass` installed, its `ID` is `COMPASS`.

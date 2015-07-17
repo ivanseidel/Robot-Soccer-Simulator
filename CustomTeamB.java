@@ -29,7 +29,7 @@ public class CustomTeamB implements Team{
 		
 		Sensor locator;
 		Sensor compass;
-		Sensor[] ultrasonic_sensors = new Sensor[4];
+		Sensor front, right, back, left;
 		float goalDir;
 
 		public void setup(){
@@ -38,10 +38,10 @@ public class CustomTeamB implements Team{
 			locator = getSensor("BALL");
 			compass = getSensor("COMPASS");
 
-			ultrasonic_sensors[UsSensors.FRONT] = getSensor("ULTRASONIC_FRONT");
-			ultrasonic_sensors[UsSensors.LEFT] = getSensor("ULTRASONIC_LEFT");
-			ultrasonic_sensors[UsSensors.BACK] = getSensor("ULTRASONIC_BACK");
-			ultrasonic_sensors[UsSensors.RIGHT] = getSensor("ULTRASONIC_RIGHT");
+			front = getSensor("ULTRASONIC_FRONT");
+			left = getSensor("ULTRASONIC_LEFT");
+			back = getSensor("ULTRASONIC_BACK");
+			right = getSensor("ULTRASONIC_RIGHT");
 
 			goalDir = 0f;
 			// Find Goal Direction
@@ -72,20 +72,15 @@ public class CustomTeamB implements Team{
 				vY = -2;
 			}
 
-			float left = ultrasonic_sensors[UsSensors.LEFT].readValue(0);
-			float right = ultrasonic_sensors[UsSensors.RIGHT].readValue(0);
-			float front = ultrasonic_sensors[UsSensors.FRONT].readValue(0);
-			float back = ultrasonic_sensors[UsSensors.BACK].readValue(0);
-
 			// Avoid contact with other objects and robots
 			float threshold = .1f;
-			if (left < threshold / 2)
+			if (left.readValue(0) < threshold / 2)
 				vX = .5f;
-			else if (right < threshold / 2)
+			else if (right.readValue(0) < threshold / 2)
 				vX = -.5f;
-			if (front < threshold)
+			if (front.readValue(0) < threshold)
 				vY = -.5f;
-			else if (back < threshold)
+			else if (back.readValue(0) < threshold)
 				vY = .5f;
 
 			setSpeed(vY, vX);

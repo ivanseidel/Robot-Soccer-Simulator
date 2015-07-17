@@ -34,3 +34,6 @@ float distance = someDistanceSensor.readValue(0);
 
 Distance sensors can be limited to some maximum value, that depends on the internal configuration
 of the sensor. And also, it's value are noise-applied, meaning that it's not 100% correct;
+
+#### [Video: Distance Sensor]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UPxlMacVczs" frameborder="0" allowfullscreen></iframe>

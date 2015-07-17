@@ -51,3 +51,6 @@ The value returned is from 0-360, 0 meaning that the robot is pointed exactly to
 `RIGHT` side of the field.
 
 Compass sensors have some noise applyed to it's final output value as well.
+
+#### [Video: Compass Sensor + Handeling Team Sides]
+<iframe width="420" height="315" src="https://www.youtube.com/embed/UBOavC5zXds" frameborder="0" allowfullscreen></iframe>

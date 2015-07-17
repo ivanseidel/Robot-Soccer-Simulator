@@ -60,3 +60,6 @@ class MyRobot extends RobotBasic{
 	}
 }
 ```
+
+#### [Video: Compass Sensor + Handeling Team Sides]
+<iframe width="420" height="315" src="https://www.youtube.com/embed/UBOavC5zXds" frameborder="0" allowfullscreen></iframe>

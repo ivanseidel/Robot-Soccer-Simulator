@@ -1,5 +1,4 @@
 GameController controller;
-GameSimulator simulator;
 
 float SCALE = 300f;
 void setup(){
@@ -17,6 +16,8 @@ void setup(){
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);
 
+	controller.resetGame();
+
 	size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE)+100);
 }
 
@@ -31,8 +32,34 @@ void draw(){
 	translate(-100, 0);
 }
 
+/*
+	Finds out what is closer to the ball that can be moved,
+	and then move to that position
+*/
 public void mouseDragged(){
-	controller.moveBallToSpot(new PVector((mouseX - 100) / SCALE, (mouseY - 100) / SCALE));
+	// Checks what is closest to the mouse cursos (Robots and Ball)
+	PVector mousePoint = new PVector((mouseX - 100) / SCALE, (mouseY - 150) / SCALE);
+	
+	float closestDist = 0.1f;
+	Simulatable closest = controller.getSimulator().ball;
+
+	for(Simulatable s: controller.getSimulator().simulatables){
+		// Skip if not Ball or Robot
+		if(!(s instanceof Ball || s instanceof Robot))
+			continue;
+
+		float dist = PVector.sub(s.getRealPosition(), mousePoint).mag();
+		if(closestDist > dist){
+			closestDist = dist;
+			closest = s;
+		}
+	}
+
+	if(closest != null){
+		closest.position.set(mousePoint);
+		closest.speed = new PVector();
+		closest.accel = new PVector();
+	}
 }
 
 public void keyPressed(){
@@ -49,7 +76,7 @@ public void keyPressed(){
 		controller.resetGame();
 		controller.resumeGame();
 	}else if(key == 'r'){
-		controller.restartPositions();
+		controller.restartPositions(null);
 	}else if(key == 'd'){
 		String debug = "DEBUG:";
 		debug += "\nisRunning:"+controller.isRunning();

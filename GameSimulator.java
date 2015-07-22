@@ -27,16 +27,24 @@ public class GameSimulator implements Drawable{
 	public PVector fieldCenter;
 
 	GameSimulator(){
-		init();
+		reset();
 	}
 
 	public void setFieldSize(float w, float h){
 		FIELD_W = w;
 		FIELD_H = h;
-		init();
+		reset();
 	}
 
-	private void init(){
+	public float getFieldWidth(){
+		return FIELD_W - field.space*2;
+	}
+
+	public float getFieldHeight(){
+		return FIELD_H - field.space*2;
+	}
+
+	public void reset(){
 		// Erase everything
 		simulatables.clear();
 		drawables.clear();

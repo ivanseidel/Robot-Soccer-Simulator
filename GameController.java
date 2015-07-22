@@ -28,9 +28,11 @@ public class GameController implements Drawable, Runnable{
 	GameController(Match match){
 		this.match = match;
 
+		// Create Judge
 		judge = new Judge(this);
 
-		resetGame();
+		// Create game Simulator
+		simulator = new GameSimulator();
 	}
 
 	public GameSimulator getSimulator(){
@@ -69,6 +71,10 @@ public class GameController implements Drawable, Runnable{
 	*/
 	private float time;
 	public void run(){
+		// Skip simulation if not started
+		if(!hasStarted())
+			return;
+
 		time = (System.currentTimeMillis() - startTime) / 1000f;
 		simulator.simulate(time);
 
@@ -80,6 +86,7 @@ public class GameController implements Drawable, Runnable{
 		***** State controllers *****
 	*/
 	public void resetGame(){
+		started = true;
 
 		// Restart start time
 		startTime = System.currentTimeMillis();
@@ -87,14 +94,20 @@ public class GameController implements Drawable, Runnable{
 		// Reset Points
 		goalsLeft = goalsRight = 0;
 
-		// Create game Simulator
-		simulator = new GameSimulator();
-
-		// Delegate reset to judge
-		judge.onGameControllerReseted();
+		// Reset game Simulator
+		simulator.reset();
 
 		// Setup Team Sides and instantiate robots
 		initTeamSides(true);
+
+		// Restart positions
+		restartPositions(TeamSide.LEFT);
+
+		// Resume the game
+		resumeGame();
+
+		// Delegate reset to judge
+		judge.onGameControllerReseted();
 	}
 
 	public void initTeamSides(boolean invertSide){
@@ -134,6 +147,11 @@ public class GameController implements Drawable, Runnable{
 		}
 	}
 
+	// If simulation started, or not
+	private boolean started = false;
+	public boolean hasStarted(){
+		return started;
+	}
 
 	// If game is running or not
 	private boolean running = false;
@@ -144,26 +162,58 @@ public class GameController implements Drawable, Runnable{
 	/*
 		Restart position of robots and ball
 	*/
-	public void restartPositions(){
-		restartPositions(null);
-	}
-
-	/*
-		Restart position of robots and ball,
-		but gives vantage to the TeamSide, by placing it near the ball.
-		Example: Left team scored goal, so Right team starts with ball.
-	*/
 	public void restartPositions(TeamSide vantage){
 		moveBallToSpot(simulator.fieldCenter);
 
-		boolean vantageGiven = false;
-		
+		restartTeamPosition(TeamSide.LEFT, vantage == TeamSide.LEFT);
+		restartTeamPosition(TeamSide.RIGHT, vantage == TeamSide.RIGHT);
+	}
+
+	/*
+		Restart position of robots and ball for a single team,
+		but gives vantage to the TeamSide, by placing it near the ball.
+		Example: Left team scored goal, so Right team starts with ball.
+
+		Basically, we try to position robots in a vertical line, centered
+		in the side of the team. That means: 1/4 of the field in X.
+		If the team has vantage, then it will start a little closer.
+	*/
+	public void restartTeamPosition(TeamSide side, boolean vantage){
+
+		// Count robots
+		int count = 0;
 		for(Robot r:robots){
-			placeRobot(r);
+			// Skip robots that are not from this team side
+			if(robotSides.get(r) == side)
+				count++;
 		}
 
-		for(Robot r:robots)
+		// Get center of the field
+		PVector start = simulator.fieldCenter.get();
+
+		float fieldW = getSimulator().getFieldWidth();
+		float fieldH = getSimulator().getFieldHeight();
+
+		float offsetX = fieldW / (vantage ? 8 : 4);
+		float offsetY = fieldH / (count + 1);
+
+		start.x += (side == TeamSide.LEFT ? -1 : 1) * offsetX;
+		start.y -= fieldH / 2;
+
+		for(Robot r:robots){
+			if(robotSides.get(r) != side)
+				continue;
+
+			start.y += offsetY;
+			placeRobot(r, start);
+		}
+
+		for(Robot r:robots){
+			if(robotSides.get(r) != side)
+				continue;
+
 			startRobot(r);
+		}
 	}
 
 	public void resumeGame(){
@@ -202,7 +252,7 @@ public class GameController implements Drawable, Runnable{
 	/*
 		Render UI and simulated Game
 	*/
-	PVector simulatorPos = new PVector(0, 100);
+	PVector simulatorPos = new PVector(0, 150);
 	public void draw(PApplet canvas, float scale){
 
 
@@ -210,13 +260,35 @@ public class GameController implements Drawable, Runnable{
 		simulator.draw(canvas, scale);
 		canvas.translate(-simulatorPos.x, -simulatorPos.y);
 
-		canvas.textSize(48);
 		canvas.fill(255);
+
+		// Draw Score
+		canvas.textSize(48);
 		canvas.textAlign(PApplet.CENTER);
 		String text = getPointsFor(TeamSide.LEFT)+" x "+getPointsFor(TeamSide.RIGHT);
 		canvas.text(text, getWidth(scale)/2, 50);
 
+		// Draw Time
+		canvas.textSize(34);
+		canvas.fill(0);
+		canvas.textAlign(PApplet.CENTER);
+		float time = judge.getCurrentTime();
+		String mins = (int)(time / 60) + "";
+		String secs = ((int)time) % 60 + "";
+		if(secs.length() < 2)
+			secs = "0"+secs;
+		canvas.text(mins+":"+secs, getWidth(scale)/2, 90);
+
+		// Draw State
+		canvas.textSize(24);
+		canvas.fill(200);
+		canvas.textAlign(PApplet.CENTER);
+		text = judge.getCurrentState();
+		canvas.text(text, getWidth(scale)/2, 120);
+
+
 		// Print Team Name on both sides
+		canvas.fill(255);
 		if(a != null){
 			canvas.textSize(32);
 			canvas.textAlign(PApplet.LEFT);
@@ -246,9 +318,19 @@ public class GameController implements Drawable, Runnable{
 	*/
 	protected void placeRobot(Robot r, PVector position, float orientation){
 		simulator.addToSimulation(r);
-		r.setState(position, orientation, true);
+		r.setState(position.get(), orientation, true);
 		judge.onRobotPlaced(r);
 		r.onStateChanged("PLACED");
+	}
+
+	/*
+		Only Places robot in the field, but don't run it
+	*/
+	protected void placeRobot(Robot r, PVector position){
+		TeamSide side = robotSides.get(r);
+		float orientation = (float)(side == TeamSide.LEFT ? 0 : Math.PI);
+
+		placeRobot(r, position, orientation);
 	}
 
 	/*
@@ -260,15 +342,14 @@ public class GameController implements Drawable, Runnable{
 		TeamSide side = robotSides.get(r);
 		PVector spot = new PVector(simulator.field.width/2, simulator.field.height/2);
 		PVector[] spots = simulator.getNeutralSpots(side);
-
-		float orientation = (float)(side == TeamSide.LEFT ? 0 : Math.PI);
 		
 		for(int i = 0; i < spots.length; i++){
-			r.setState(spots[i], orientation, false);
+			r.setState(spots[i], 0, false);
 			if(simulator.isColliding(r)) continue;
 			spot = spots[i];
 		}
-		placeRobot(r, spot, orientation);
+
+		placeRobot(r, spot);
 	}
 
 	/*

@@ -88,6 +88,7 @@ public class Judge{
 		if(half == 2){
 			controller.initTeamSides(false);
 			controller.restartPositions(TeamSide.LEFT);
+			controller.resumeGame();
 		}
 
 		if(half > 2){

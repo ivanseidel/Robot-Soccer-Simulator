@@ -16,8 +16,6 @@ void setup(){
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);
 
-	controller.resetGame();
-
 	size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE)+100);
 }
 
@@ -65,11 +63,15 @@ public void mouseDragged(){
 public void keyPressed(){
 
 	if(key == ' '){
-		if(controller.isRunning()){
-			System.out.println("Pausing game...");
+		if(!controller.hasStarted()){
+			System.out.println("Start game");
+			controller.resetGame();
+			controller.resumeGame();
+		}else if(controller.isRunning()){
+			System.out.println("Pause game");
 			controller.pauseGame();
 		}else{
-			System.out.println("Starting game...");
+			System.out.println("Resume game");
 			controller.resumeGame();
 		}
 	}else if(key == 'i'){

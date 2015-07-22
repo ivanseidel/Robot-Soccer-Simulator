@@ -33,6 +33,9 @@ public class GameController implements Drawable, Runnable{
 
 		// Create game Simulator
 		simulator = new GameSimulator();
+
+		// Reset everything
+		resetGame();
 	}
 
 	public GameSimulator getSimulator(){
@@ -98,8 +101,6 @@ public class GameController implements Drawable, Runnable{
 		***** State controllers *****
 	*/
 	public void resetGame(){
-		started = true;
-
 		// Restart start time
 		startTime = System.currentTimeMillis();
 
@@ -115,14 +116,14 @@ public class GameController implements Drawable, Runnable{
 		// Restart positions
 		restartPositions(TeamSide.LEFT);
 
-		// Resume the game
-		resumeGame();
-
 		// Delegate reset to judge
 		judge.onGameControllerReseted();
+
+		started = false;
 	}
 
 	public void initTeamSides(boolean invertSide){
+		
 		// Remove Robots
 		while(robots.size() > 0){
 			unRegisterRobot(robots.get(0));
@@ -222,13 +223,6 @@ public class GameController implements Drawable, Runnable{
 			start.y += offsetY;
 			placeRobot(r, start);
 		}
-
-		for(Robot r:robots){
-			if(robotSides.get(r) != side)
-				continue;
-
-			startRobot(r);
-		}
 	}
 
 	public void resumeGame(){
@@ -244,6 +238,7 @@ public class GameController implements Drawable, Runnable{
 		simulator.ball.setOn(true);
 
 		running = true;
+		started = true;
 	}
 
 	public void pauseGame(){

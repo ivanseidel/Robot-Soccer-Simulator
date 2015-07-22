@@ -26,12 +26,20 @@ public class Field implements Drawable{
 	int white = 255;
 	// black
 	int black = 0; 
+
+	int leftSideColor = 0xFF1010FF;
+	int rightSideColor = 0xFFEFEF10;
 	
 	Field(float w, float h){
 		width = w;
 		height = h;
 	};
 
+
+	boolean invertColors = false;
+	public void setColorInvertion(boolean invert){
+		invertColors = invert;
+	}
 
 	public void draw(PApplet canvas, float scale){
 
@@ -80,13 +88,14 @@ public class Field implements Drawable{
 		canvas.ellipse((width-space-neutral_spot_dist)*scale, (height/2+y_goal/2)*scale, neutral_diam, neutral_diam);  // center
 
 		// left goal
-		canvas.stroke(0,0,255); // blue  
-		canvas.fill(0,0,255);  // blue
+		canvas.noStroke();
+		canvas.stroke((invertColors ? rightSideColor : leftSideColor)); // blue  
+		canvas.fill((invertColors ? rightSideColor : leftSideColor));  // blue
 		canvas.rect((space-x_goal + line_width)*scale, (height/2-y_goal/2)*scale, x_goal*scale, y_goal*scale);  // center
 
 		// right goal
-		canvas.stroke(255,255,0); // yellow  
-		canvas.fill(255,255,0);  // yellow
+		canvas.stroke((invertColors ? leftSideColor : rightSideColor)); // yellow  
+		canvas.fill((invertColors ? leftSideColor : rightSideColor));  // yellow
 		canvas.rect((width-space-line_width)*scale, (height/2-y_goal/2)*scale, x_goal*scale, y_goal*scale);  // center
 
 	}

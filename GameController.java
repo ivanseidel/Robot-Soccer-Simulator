@@ -66,6 +66,18 @@ public class GameController implements Drawable, Runnable{
 			goalsRight += points;
 	}
 
+	private boolean lastside = true;
+	private void setSideInvertion(boolean inverted){
+		if(lastside != inverted){
+			int lastGoalsLeft = goalsLeft;
+			int lastGoalsRight = goalsRight;
+			goalsLeft = lastGoalsRight;
+			goalsRight = lastGoalsLeft;
+		}
+
+		simulator.field.setColorInvertion(inverted);
+	}
+
 	/*
 		Called every time to update Game and simulate it	
 	*/
@@ -132,7 +144,7 @@ public class GameController implements Drawable, Runnable{
 		for(int i = 0; i < match.teamAPlayers; i++){
 			Robot ar = a.buildRobot(simulator, i);
 			if(ar != null){
-				ar.setTeamColor(0xFF0000FF);
+				ar.setTeamColor(invertSide ? 0xFFFFFF00 : 0xFF0000FF);
 				registerRobot(ar, TeamSide.LEFT);
 			}
 		}
@@ -141,10 +153,13 @@ public class GameController implements Drawable, Runnable{
 		for(int i = 0; i < match.teamBPlayers; i++){
 			Robot br = b.buildRobot(simulator, i);
 			if(br != null){
-				br.setTeamColor(0xFFFFFF00);
+				br.setTeamColor(invertSide ? 0xFF0000FF : 0xFFFFFF00);
 				registerRobot(br, TeamSide.RIGHT);
 			}
 		}
+
+		// Fix points, by inverting them if needed
+		setSideInvertion(invertSide);
 	}
 
 	// If simulation started, or not

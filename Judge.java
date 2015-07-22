@@ -7,7 +7,7 @@ public class Judge{
 	private float BALL_OUTSIDE_TIME_LIMIT = 0.5f;
 	private float ROBOT_TAKEN_OUTSIDE_TIME = 5f;
 	private float BALL_STOPPED_TIME_LIMIT = 5f;
-	private float GAME_DURATION = 10 * 1;
+	private float GAME_DURATION = 60 * 5;
 
 	private GameController controller;
 	private GameSimulator simulator;

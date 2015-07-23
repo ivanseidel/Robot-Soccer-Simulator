@@ -174,6 +174,60 @@ class MathUtil {
 		return closest;
 	}
 
+	private static float distPointToSegment(PVector point, float x0, float y0, float x1, float y1) {
+		float dot = (point.x - x0) * (x1 - x0) + (point.y - y0) * (y1 - y0);
+		float lenSq = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
+
+		float frac = dot / lenSq;
+
+		float x = x0, y = y0;
+
+		if (frac > 1f) {
+			x = x1;
+			y = y1;
+		}
+		else if (frac >= 0f) {
+			x = x0 + frac * (x1 - x0);
+			y = y0 + frac * (y1 - y0);
+		}
+
+		return (float) Math.sqrt((x - point.x) * (x - point.x) + (y - point.y) * (y - point.y));
+	}
+
+	private static float distRayToSegment(PVector origin, float direction, float x0, float y0, float x1, float y1) {
+		// ternary search
+		float minDist = 0f, maxDist = 10f;
+		while (maxDist - minDist > 1e-5f) {
+			float mid1 = minDist + (maxDist - minDist) / 3.0f;
+			float mid2 = minDist + (maxDist - minDist) / 1.5f;
+
+			PVector u = PVector.fromAngle(direction);
+
+			u.setMag(mid1);
+			PVector point1 = PVector.add(origin, u);
+
+			u.setMag(mid2);
+			PVector point2 = PVector.add(origin, u);
+
+			float dist1 = distPointToSegment(point1, x0, y0, x1, y1);
+			float dist2 = distPointToSegment(point2, x0, y0, x1, y1);
+
+			if (dist1 < dist2)
+				maxDist = mid2;
+			else
+				minDist = mid1;
+
+			if (Math.abs(dist1) < 1e-4f)
+				return mid1;
+			if (Math.abs(dist2) < 1e-4f)
+				return mid2;
+		}
+
+		return Float.POSITIVE_INFINITY;
+	}
+
+	/*
+	This has to be debugged! more efficient, though
 	private static float distRayToSegment(PVector origin, float direction, float x0, float y0, float x1, float y1) {
 		// black magic a.k.a. vector algebra
 		// <http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect>
@@ -210,7 +264,7 @@ class MathUtil {
 		point.add(s2);
 
 		return origin.dist(point);
-	}
+	}*/
 
 	private static float distPointToCircle(PVector point, PVector centre, float radius) {
 		return point.dist(centre) - radius;

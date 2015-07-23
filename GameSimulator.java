@@ -196,7 +196,7 @@ public class GameSimulator implements Drawable{
 			while(i.hasNext()){
 				Simulatable sim = (Simulatable)i.next();
 				
-				if (sim == robot || sim instanceof Ball)
+				if (sim == robot || sim instanceof Ball || sim instanceof GoalWall)
 					continue;
 				
 				dist = Math.min(dist, MathUtil.rayDistance(origin, direction, sim));

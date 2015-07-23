@@ -142,7 +142,7 @@ public class GameController implements Drawable, Runnable{
 		b.setTeamSide(TeamSide.RIGHT);
 
 		// Build Robots for Team A
-		for(int i = 0; i < match.teamAPlayers; i++){
+		for(int i = 0; i < (invertSide ? match.teamBPlayers : match.teamAPlayers); i++){
 			Robot ar = a.buildRobot(simulator, i);
 			if(ar != null){
 				ar.setTeamColor(invertSide ? 0xFFFFFF00 : 0xFF0000FF);
@@ -151,7 +151,7 @@ public class GameController implements Drawable, Runnable{
 		}
 
 		// Build Robots for Team B
-		for(int i = 0; i < match.teamBPlayers; i++){
+		for(int i = 0; i < (invertSide ? match.teamAPlayers : match.teamBPlayers); i++){
 			Robot br = b.buildRobot(simulator, i);
 			if(br != null){
 				br.setTeamColor(invertSide ? 0xFF0000FF : 0xFFFFFF00);

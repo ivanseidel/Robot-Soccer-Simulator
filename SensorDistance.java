@@ -35,7 +35,7 @@ class SensorDistance extends Sensor{
 		dist = getReadingAfterNoise(dist, NOISE_AMOUNT);
 
 		float[] values = new float[1];
-		values[0] = dist;
+		values[0] = Math.max(dist, 0);
 		return values;
 	}
 

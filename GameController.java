@@ -242,8 +242,15 @@ public class GameController implements Drawable, Runnable{
 	}
 
 	public void pauseGame(){
-		for(Robot r:robots)
+		for(Robot r:robots){
 			pauseRobot(r);
+
+			try{
+				Thread.sleep(2);
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		}
 
 		simulator.ball.setOn(false);
 
@@ -300,15 +307,15 @@ public class GameController implements Drawable, Runnable{
 		// Print Team Name on both sides
 		canvas.fill(255);
 		if(a != null){
-			canvas.textSize(32);
+			canvas.textSize(28);
 			canvas.textAlign(PApplet.LEFT);
 			canvas.text(a.getTeamName(), 20, 50);
 			canvas.textSize(16);
 			canvas.text(a.getClass().getSimpleName(), 20, 70);
-		}
+		}   
 
 		if(b != null){
-			canvas.textSize(32);
+			canvas.textSize(28);
 			canvas.textAlign(PApplet.RIGHT);
 			canvas.text(b.getTeamName(), getWidth(scale) - 20, 50);
 			canvas.textSize(16);

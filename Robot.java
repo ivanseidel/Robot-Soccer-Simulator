@@ -114,12 +114,20 @@ public class Robot extends Simulatable implements ShapeCircle, Drawable, Runnabl
 
 	// Change robot's front/back left/right speed
 	public void setSpeed(float x, float y){
+		if(Float.isNaN(x) ||  Float.isNaN(y)){
+			// System.out.println("Excep: setSpeed "+x+" "+y);
+			return;
+		}
 		targetSpeed.set(x, y);
 		targetSpeed.limit(maxSpeed);
 	}
 
 	// Set the target angular speed
 	public void setRotation(float speed){
+		if(speed == Float.NaN){
+			System.out.println("Excep: setRotation");
+			return;
+		}
 		targetAngularSpeed = (float)Math.toRadians(speed);
 	}
 

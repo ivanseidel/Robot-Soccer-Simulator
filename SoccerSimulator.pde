@@ -16,7 +16,12 @@ void setup(){
 
 	controller.getSimulator().setFieldSize(2.44f, 1.82f);
 
-	size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE)+100);
+	
+  //size(1280, 800);
+}
+
+void settings() {
+  size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE) + 100);
 }
 
 void draw(){
@@ -94,4 +99,3 @@ public void keyPressed(){
 	}
 
 }
-

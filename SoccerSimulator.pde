@@ -1,22 +1,19 @@
 GameController controller;
 
 float SCALE = 300f;
-void setup(){
-	/*
-	 * Define the teams for the current match here
-	 */
-	controller = new GameController(new Match(
-		// Team A Class
-		CustomTeamA.class,
-		// Team B Class
-		CustomTeamB.class,
-		// Number of robots on each side
-		2
-	));
 
-	controller.getSimulator().setFieldSize(2.44f, 1.82f);
+void settings(){
+  controller = new GameController(new Match(
+    // Team A Class
+    CustomTeamA.class,
+    // Team B Class
+    CustomTeamB.class,
+    // Number of robots on each side
+    2
+  ));
 
-	size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE)+100);
+  controller.getSimulator().setFieldSize(2.44f, 1.82f);
+  size((int)controller.getWidth(SCALE) + 200, (int)controller.getHeight(SCALE) + 100);
 }
 
 void draw(){
@@ -94,4 +91,3 @@ public void keyPressed(){
 	}
 
 }
-
